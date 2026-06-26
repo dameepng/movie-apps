@@ -1,9 +1,8 @@
-import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/presentation/provider/watchlist_tv_notifier.dart';
+import 'package:ditonton/common/utils.dart';
+import 'package:ditonton/presentation/bloc/watchlist_tvs/watchlist_tvs_bloc.dart';
 import 'package:ditonton/presentation/widgets/tv_card_list.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:ditonton/common/utils.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WatchlistTVsPage extends StatefulWidget {
   static const routeName = '/watchlist-tv';
@@ -14,14 +13,14 @@ class WatchlistTVsPage extends StatefulWidget {
   State<WatchlistTVsPage> createState() => _WatchlistTVsPageState();
 }
 
-class _WatchlistTVsPageState extends State<WatchlistTVsPage> with RouteAware {
+class _WatchlistTVsPageState extends State<WatchlistTVsPage>
+    with RouteAware {
   @override
   void initState() {
     super.initState();
     Future.microtask(() {
       if (!mounted) return;
-      Provider.of<WatchlistTVNotifier>(context, listen: false)
-          .fetchWatchlistTVs();
+      context.read<WatchlistTVsBloc>().add(FetchWatchlistTVs());
     });
   }
 
@@ -33,8 +32,7 @@ class _WatchlistTVsPageState extends State<WatchlistTVsPage> with RouteAware {
 
   @override
   void didPopNext() {
-    Provider.of<WatchlistTVNotifier>(context, listen: false)
-        .fetchWatchlistTVs();
+    context.read<WatchlistTVsBloc>().add(FetchWatchlistTVs());
   }
 
   @override
@@ -45,19 +43,20 @@ class _WatchlistTVsPageState extends State<WatchlistTVsPage> with RouteAware {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<WatchlistTVNotifier>(
-          builder: (context, data, child) {
-            if (data.watchlistState == RequestState.Loading) {
+        child: BlocBuilder<WatchlistTVsBloc, WatchlistTVsState>(
+          builder: (context, state) {
+            if (state is WatchlistTVsLoading) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (data.watchlistState == RequestState.Loaded) {
-              if (data.watchlistTVs.isEmpty) {
+            } else if (state is WatchlistTVsHasData) {
+              if (state.result.isEmpty) {
                 return const Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.tv_off, size: 72, color: Colors.grey),
+                      Icon(Icons.tv_off_outlined,
+                          size: 72, color: Colors.grey),
                       SizedBox(height: 16),
                       Text('Belum ada item di Watchlist',
                           style: TextStyle(color: Colors.grey)),
@@ -67,16 +66,18 @@ class _WatchlistTVsPageState extends State<WatchlistTVsPage> with RouteAware {
               }
               return ListView.builder(
                 itemBuilder: (context, index) {
-                  final tv = data.watchlistTVs[index];
+                  final tv = state.result[index];
                   return TVCard(tv);
                 },
-                itemCount: data.watchlistTVs.length,
+                itemCount: state.result.length,
               );
-            } else {
+            } else if (state is WatchlistTVsError) {
               return Center(
                 key: const Key('error_message'),
-                child: Text(data.message),
+                child: Text(state.message),
               );
+            } else {
+              return Container();
             }
           },
         ),

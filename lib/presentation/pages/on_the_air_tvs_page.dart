@@ -1,8 +1,7 @@
-import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/presentation/provider/on_the_air_tvs_notifier.dart';
+import 'package:ditonton/presentation/bloc/on_the_air_tvs/on_the_air_tvs_bloc.dart';
 import 'package:ditonton/presentation/widgets/tv_card_list.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OnTheAirTVsPage extends StatefulWidget {
   static const routeName = '/on-the-air-tv';
@@ -19,8 +18,7 @@ class _OnTheAirTVsPageState extends State<OnTheAirTVsPage> {
     super.initState();
     Future.microtask(() {
       if (!mounted) return;
-      Provider.of<OnTheAirTVsNotifier>(context, listen: false)
-          .fetchOnTheAirTVs();
+      context.read<OnTheAirTVsBloc>().add(FetchOnTheAirTVs());
     });
   }
 
@@ -32,25 +30,27 @@ class _OnTheAirTVsPageState extends State<OnTheAirTVsPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<OnTheAirTVsNotifier>(
-          builder: (context, data, child) {
-            if (data.state == RequestState.Loading) {
+        child: BlocBuilder<OnTheAirTVsBloc, OnTheAirTVsState>(
+          builder: (context, state) {
+            if (state is OnTheAirTVsLoading) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (data.state == RequestState.Loaded) {
+            } else if (state is OnTheAirTVsHasData) {
               return ListView.builder(
                 itemBuilder: (context, index) {
-                  final tv = data.tvs[index];
+                  final tv = state.result[index];
                   return TVCard(tv);
                 },
-                itemCount: data.tvs.length,
+                itemCount: state.result.length,
               );
-            } else {
+            } else if (state is OnTheAirTVsError) {
               return Center(
                 key: const Key('error_message'),
-                child: Text(data.message),
+                child: Text(state.message),
               );
+            } else {
+              return Container();
             }
           },
         ),

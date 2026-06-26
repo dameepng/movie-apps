@@ -1,9 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ditonton/common/constants.dart';
-import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/presentation/provider/tv_season_detail_notifier.dart';
+import 'package:ditonton/presentation/bloc/tv_season_detail/tv_season_detail_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TVSeasonDetailPage extends StatefulWidget {
   static const routeName = '/tv-season-detail';
@@ -24,8 +23,9 @@ class _TVSeasonDetailPageState extends State<TVSeasonDetailPage> {
   void initState() {
     super.initState();
     Future.microtask(() {
-      Provider.of<TVSeasonDetailNotifier>(context, listen: false)
-          .fetchTVSeasonDetail(widget.id, widget.seasonNumber);
+      context
+          .read<TVSeasonDetailBloc>()
+          .add(FetchTVSeasonDetail(widget.id, widget.seasonNumber));
     });
   }
 
@@ -33,16 +33,16 @@ class _TVSeasonDetailPageState extends State<TVSeasonDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Season ${widget.seasonNumber} Episodes'),
+        title: Text('Season \${widget.seasonNumber} Episodes'),
       ),
-      body: Consumer<TVSeasonDetailNotifier>(
-        builder: (context, provider, child) {
-          if (provider.state == RequestState.Loading) {
+      body: BlocBuilder<TVSeasonDetailBloc, TVSeasonDetailState>(
+        builder: (context, state) {
+          if (state is TVSeasonDetailLoading) {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          } else if (provider.state == RequestState.Loaded) {
-            final episodes = provider.seasonDetail.episodes;
+          } else if (state is TVSeasonDetailHasData) {
+            final episodes = state.result.episodes;
             if (episodes.isEmpty) {
               return const Center(child: Text('No episodes found.'));
             }
@@ -65,7 +65,7 @@ class _TVSeasonDetailPageState extends State<TVSeasonDetailPage> {
                           child: episode.stillPath != null
                               ? CachedNetworkImage(
                                   imageUrl:
-                                      'https://image.tmdb.org/t/p/w500${episode.stillPath}',
+                                      'https://image.tmdb.org/t/p/w500\${episode.stillPath}',
                                   fit: BoxFit.cover,
                                   placeholder: (context, url) => const Center(
                                     child: CircularProgressIndicator(),
@@ -87,7 +87,7 @@ class _TVSeasonDetailPageState extends State<TVSeasonDetailPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                '${episode.episodeNumber}. ${episode.name}',
+                                '\${episode.episodeNumber}. \${episode.name}',
                                 style: kHeading6,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
@@ -99,7 +99,7 @@ class _TVSeasonDetailPageState extends State<TVSeasonDetailPage> {
                                       color: kMikadoYellow, size: 16),
                                   const SizedBox(width: 4),
                                   Text(
-                                    '${episode.voteAverage}',
+                                    '\${episode.voteAverage}',
                                     style: const TextStyle(fontSize: 12),
                                   ),
                                 ],
@@ -123,9 +123,9 @@ class _TVSeasonDetailPageState extends State<TVSeasonDetailPage> {
                 );
               },
             );
-          } else if (provider.state == RequestState.Error) {
+          } else if (state is TVSeasonDetailError) {
             return Center(
-              child: Text(provider.message),
+              child: Text(state.message),
             );
           } else {
             return Container();
