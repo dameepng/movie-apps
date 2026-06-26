@@ -4,23 +4,23 @@ import 'package:ditonton/presentation/widgets/tv_card_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class TopRatedTvsPage extends StatefulWidget {
+class TopRatedTVsPage extends StatefulWidget {
   static const routeName = '/top-rated-tv';
 
-  const TopRatedTvsPage({Key? key}) : super(key: key);
+  const TopRatedTVsPage({Key? key}) : super(key: key);
 
   @override
-  State<TopRatedTvsPage> createState() => _TopRatedTvsPageState();
+  State<TopRatedTVsPage> createState() => _TopRatedTVsPageState();
 }
 
-class _TopRatedTvsPageState extends State<TopRatedTvsPage> {
+class _TopRatedTVsPageState extends State<TopRatedTVsPage> {
   @override
   void initState() {
     super.initState();
     Future.microtask(() {
       if (!mounted) return;
-      Provider.of<TopRatedTvsNotifier>(context, listen: false)
-          .fetchTopRatedTvs();
+      Provider.of<TopRatedTVsNotifier>(context, listen: false)
+          .fetchTopRatedTVs();
     });
   }
 
@@ -32,7 +32,7 @@ class _TopRatedTvsPageState extends State<TopRatedTvsPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<TopRatedTvsNotifier>(
+        child: Consumer<TopRatedTVsNotifier>(
           builder: (context, data, child) {
             if (data.state == RequestState.Loading) {
               return const Center(
@@ -42,7 +42,7 @@ class _TopRatedTvsPageState extends State<TopRatedTvsPage> {
               return ListView.builder(
                 itemBuilder: (context, index) {
                   final tv = data.tvs[index];
-                  return TvCard(tv);
+                  return TVCard(tv);
                 },
                 itemCount: data.tvs.length,
               );

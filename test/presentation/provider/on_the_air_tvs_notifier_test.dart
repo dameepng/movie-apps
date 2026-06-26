@@ -10,22 +10,22 @@ import 'package:mockito/mockito.dart';
 
 import 'on_the_air_tvs_notifier_test.mocks.dart';
 
-@GenerateMocks([GetOnTheAirTvs])
+@GenerateMocks([GetOnTheAirTVs])
 void main() {
-  late MockGetOnTheAirTvs mockGetOnTheAirTvs;
-  late OnTheAirTvsNotifier notifier;
+  late MockGetOnTheAirTVs mockGetOnTheAirTVs;
+  late OnTheAirTVsNotifier notifier;
   late int listenerCallCount;
 
   setUp(() {
     listenerCallCount = 0;
-    mockGetOnTheAirTvs = MockGetOnTheAirTvs();
-    notifier = OnTheAirTvsNotifier(mockGetOnTheAirTvs)
+    mockGetOnTheAirTVs = MockGetOnTheAirTVs();
+    notifier = OnTheAirTVsNotifier(mockGetOnTheAirTVs)
       ..addListener(() {
         listenerCallCount++;
       });
   });
 
-  final tTv = Tv(
+  final tTV = TV(
     backdropPath: 'backdropPath',
     genreIds: const [1, 2, 3],
     id: 1,
@@ -39,13 +39,13 @@ void main() {
     voteCount: 1,
   );
 
-  final tTvList = <Tv>[tTv];
+  final tTVList = <TV>[tTV];
 
   test('should change state to loading when usecase is called', () async {
     // arrange
-    when(mockGetOnTheAirTvs.execute()).thenAnswer((_) async => Right(tTvList));
+    when(mockGetOnTheAirTVs.execute()).thenAnswer((_) async => Right(tTVList));
     // act
-    notifier.fetchOnTheAirTvs();
+    notifier.fetchOnTheAirTVs();
     // assert
     expect(notifier.state, RequestState.Loading);
     expect(listenerCallCount, 1);
@@ -53,21 +53,21 @@ void main() {
 
   test('should change tvs data when data is gotten successfully', () async {
     // arrange
-    when(mockGetOnTheAirTvs.execute()).thenAnswer((_) async => Right(tTvList));
+    when(mockGetOnTheAirTVs.execute()).thenAnswer((_) async => Right(tTVList));
     // act
-    await notifier.fetchOnTheAirTvs();
+    await notifier.fetchOnTheAirTVs();
     // assert
     expect(notifier.state, RequestState.Loaded);
-    expect(notifier.tvs, tTvList);
+    expect(notifier.tvs, tTVList);
     expect(listenerCallCount, 2);
   });
 
   test('should return error when data is unsuccessful', () async {
     // arrange
-    when(mockGetOnTheAirTvs.execute())
+    when(mockGetOnTheAirTVs.execute())
         .thenAnswer((_) async => const Left(ServerFailure('Server Failure')));
     // act
-    await notifier.fetchOnTheAirTvs();
+    await notifier.fetchOnTheAirTVs();
     // assert
     expect(notifier.state, RequestState.Error);
     expect(notifier.message, 'Server Failure');

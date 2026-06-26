@@ -7,24 +7,24 @@ import 'package:mockito/mockito.dart';
 import '../../helpers/test_helper.mocks.dart';
 
 void main() {
-  late GetTvRecommendations usecase;
-  late MockTvRepository mockTvRepository;
+  late GetTVRecommendations usecase;
+  late MockTVRepository mockTVRepository;
 
   setUp(() {
-    mockTvRepository = MockTvRepository();
-    usecase = GetTvRecommendations(mockTvRepository);
+    mockTVRepository = MockTVRepository();
+    usecase = GetTVRecommendations(mockTVRepository);
   });
 
   const tId = 1;
-  final tTvs = <Tv>[];
+  final tTVs = <TV>[];
 
   test('should get list of tv recommendations from the repository', () async {
     // arrange
-    when(mockTvRepository.getTvRecommendations(tId))
-        .thenAnswer((_) async => Right(tTvs));
+    when(mockTVRepository.getTVRecommendations(tId))
+        .thenAnswer((_) async => Right(tTVs));
     // act
     final result = await usecase.execute(tId);
     // assert
-    expect(result, Right(tTvs));
+    expect(result, Right(tTVs));
   });
 }

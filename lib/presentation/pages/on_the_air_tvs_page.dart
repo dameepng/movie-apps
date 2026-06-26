@@ -4,23 +4,23 @@ import 'package:ditonton/presentation/widgets/tv_card_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class OnTheAirTvsPage extends StatefulWidget {
+class OnTheAirTVsPage extends StatefulWidget {
   static const routeName = '/on-the-air-tv';
 
-  const OnTheAirTvsPage({Key? key}) : super(key: key);
+  const OnTheAirTVsPage({Key? key}) : super(key: key);
 
   @override
-  State<OnTheAirTvsPage> createState() => _OnTheAirTvsPageState();
+  State<OnTheAirTVsPage> createState() => _OnTheAirTVsPageState();
 }
 
-class _OnTheAirTvsPageState extends State<OnTheAirTvsPage> {
+class _OnTheAirTVsPageState extends State<OnTheAirTVsPage> {
   @override
   void initState() {
     super.initState();
     Future.microtask(() {
       if (!mounted) return;
-      Provider.of<OnTheAirTvsNotifier>(context, listen: false)
-          .fetchOnTheAirTvs();
+      Provider.of<OnTheAirTVsNotifier>(context, listen: false)
+          .fetchOnTheAirTVs();
     });
   }
 
@@ -32,7 +32,7 @@ class _OnTheAirTvsPageState extends State<OnTheAirTvsPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<OnTheAirTvsNotifier>(
+        child: Consumer<OnTheAirTVsNotifier>(
           builder: (context, data, child) {
             if (data.state == RequestState.Loading) {
               return const Center(
@@ -42,7 +42,7 @@ class _OnTheAirTvsPageState extends State<OnTheAirTvsPage> {
               return ListView.builder(
                 itemBuilder: (context, index) {
                   final tv = data.tvs[index];
-                  return TvCard(tv);
+                  return TVCard(tv);
                 },
                 itemCount: data.tvs.length,
               );

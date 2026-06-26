@@ -5,43 +5,43 @@ import 'package:ditonton/domain/usecases/get_popular_tvs.dart';
 import 'package:ditonton/domain/usecases/get_top_rated_tvs.dart';
 import 'package:flutter/foundation.dart';
 
-class TvListNotifier extends ChangeNotifier {
-  var _onTheAirTvs = <Tv>[];
-  List<Tv> get onTheAirTvs => _onTheAirTvs;
+class TVListNotifier extends ChangeNotifier {
+  var _onTheAirTVs = <TV>[];
+  List<TV> get onTheAirTVs => _onTheAirTVs;
 
   RequestState _onTheAirState = RequestState.Empty;
   RequestState get onTheAirState => _onTheAirState;
 
-  var _popularTvs = <Tv>[];
-  List<Tv> get popularTvs => _popularTvs;
+  var _popularTVs = <TV>[];
+  List<TV> get popularTVs => _popularTVs;
 
-  RequestState _popularTvsState = RequestState.Empty;
-  RequestState get popularTvsState => _popularTvsState;
+  RequestState _popularTVsState = RequestState.Empty;
+  RequestState get popularTVsState => _popularTVsState;
 
-  var _topRatedTvs = <Tv>[];
-  List<Tv> get topRatedTvs => _topRatedTvs;
+  var _topRatedTVs = <TV>[];
+  List<TV> get topRatedTVs => _topRatedTVs;
 
-  RequestState _topRatedTvsState = RequestState.Empty;
-  RequestState get topRatedTvsState => _topRatedTvsState;
+  RequestState _topRatedTVsState = RequestState.Empty;
+  RequestState get topRatedTVsState => _topRatedTVsState;
 
   String _message = '';
   String get message => _message;
 
-  TvListNotifier({
-    required this.getOnTheAirTvs,
-    required this.getPopularTvs,
-    required this.getTopRatedTvs,
+  TVListNotifier({
+    required this.getOnTheAirTVs,
+    required this.getPopularTVs,
+    required this.getTopRatedTVs,
   });
 
-  final GetOnTheAirTvs getOnTheAirTvs;
-  final GetPopularTvs getPopularTvs;
-  final GetTopRatedTvs getTopRatedTvs;
+  final GetOnTheAirTVs getOnTheAirTVs;
+  final GetPopularTVs getPopularTVs;
+  final GetTopRatedTVs getTopRatedTVs;
 
-  Future<void> fetchOnTheAirTvs() async {
+  Future<void> fetchOnTheAirTVs() async {
     _onTheAirState = RequestState.Loading;
     notifyListeners();
 
-    final result = await getOnTheAirTvs.execute();
+    final result = await getOnTheAirTVs.execute();
     result.fold(
       (failure) {
         _onTheAirState = RequestState.Error;
@@ -50,45 +50,45 @@ class TvListNotifier extends ChangeNotifier {
       },
       (tvsData) {
         _onTheAirState = RequestState.Loaded;
-        _onTheAirTvs = tvsData;
+        _onTheAirTVs = tvsData;
         notifyListeners();
       },
     );
   }
 
-  Future<void> fetchPopularTvs() async {
-    _popularTvsState = RequestState.Loading;
+  Future<void> fetchPopularTVs() async {
+    _popularTVsState = RequestState.Loading;
     notifyListeners();
 
-    final result = await getPopularTvs.execute();
+    final result = await getPopularTVs.execute();
     result.fold(
       (failure) {
-        _popularTvsState = RequestState.Error;
+        _popularTVsState = RequestState.Error;
         _message = failure.message;
         notifyListeners();
       },
       (tvsData) {
-        _popularTvsState = RequestState.Loaded;
-        _popularTvs = tvsData;
+        _popularTVsState = RequestState.Loaded;
+        _popularTVs = tvsData;
         notifyListeners();
       },
     );
   }
 
-  Future<void> fetchTopRatedTvs() async {
-    _topRatedTvsState = RequestState.Loading;
+  Future<void> fetchTopRatedTVs() async {
+    _topRatedTVsState = RequestState.Loading;
     notifyListeners();
 
-    final result = await getTopRatedTvs.execute();
+    final result = await getTopRatedTVs.execute();
     result.fold(
       (failure) {
-        _topRatedTvsState = RequestState.Error;
+        _topRatedTVsState = RequestState.Error;
         _message = failure.message;
         notifyListeners();
       },
       (tvsData) {
-        _topRatedTvsState = RequestState.Loaded;
-        _topRatedTvs = tvsData;
+        _topRatedTVsState = RequestState.Loaded;
+        _topRatedTVs = tvsData;
         notifyListeners();
       },
     );

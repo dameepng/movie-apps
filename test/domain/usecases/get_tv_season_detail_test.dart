@@ -7,17 +7,17 @@ import 'package:mockito/mockito.dart';
 import '../../helpers/test_helper.mocks.dart';
 
 void main() {
-  late GetTvSeasonDetail usecase;
-  late MockTvRepository mockTvRepository;
+  late GetTVSeasonDetail usecase;
+  late MockTVRepository mockTVRepository;
 
   setUp(() {
-    mockTvRepository = MockTvRepository();
-    usecase = GetTvSeasonDetail(mockTvRepository);
+    mockTVRepository = MockTVRepository();
+    usecase = GetTVSeasonDetail(mockTVRepository);
   });
 
   const tId = 1;
   const tSeasonNumber = 1;
-  const tTvSeasonDetail = TvSeasonDetail(
+  const tTVSeasonDetail = TVSeasonDetail(
     id: 1,
     name: "name",
     posterPath: "posterPath",
@@ -27,11 +27,11 @@ void main() {
 
   test('should get season detail from the repository', () async {
     // arrange
-    when(mockTvRepository.getTvSeasonDetail(tId, tSeasonNumber))
-        .thenAnswer((_) async => const Right(tTvSeasonDetail));
+    when(mockTVRepository.getTVSeasonDetail(tId, tSeasonNumber))
+        .thenAnswer((_) async => const Right(tTVSeasonDetail));
     // act
     final result = await usecase.execute(tId, tSeasonNumber);
     // assert
-    expect(result, const Right(tTvSeasonDetail));
+    expect(result, const Right(tTVSeasonDetail));
   });
 }

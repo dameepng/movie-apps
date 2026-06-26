@@ -10,16 +10,16 @@ import 'package:mockito/mockito.dart';
 
 import 'tv_season_detail_notifier_test.mocks.dart';
 
-@GenerateMocks([GetTvSeasonDetail])
+@GenerateMocks([GetTVSeasonDetail])
 void main() {
-  late MockGetTvSeasonDetail mockGetTvSeasonDetail;
-  late TvSeasonDetailNotifier notifier;
+  late MockGetTVSeasonDetail mockGetTVSeasonDetail;
+  late TVSeasonDetailNotifier notifier;
   late int listenerCallCount;
 
   setUp(() {
     listenerCallCount = 0;
-    mockGetTvSeasonDetail = MockGetTvSeasonDetail();
-    notifier = TvSeasonDetailNotifier(getTvSeasonDetail: mockGetTvSeasonDetail)
+    mockGetTVSeasonDetail = MockGetTVSeasonDetail();
+    notifier = TVSeasonDetailNotifier(getTVSeasonDetail: mockGetTVSeasonDetail)
       ..addListener(() {
         listenerCallCount++;
       });
@@ -27,7 +27,7 @@ void main() {
 
   const tId = 1;
   const tSeasonNumber = 1;
-  const tTvSeasonDetail = TvSeasonDetail(
+  const tTVSeasonDetail = TVSeasonDetail(
     id: 1,
     name: "name",
     posterPath: "posterPath",
@@ -37,10 +37,10 @@ void main() {
 
   test('should change state to loading when usecase is called', () async {
     // arrange
-    when(mockGetTvSeasonDetail.execute(tId, tSeasonNumber))
-        .thenAnswer((_) async => const Right(tTvSeasonDetail));
+    when(mockGetTVSeasonDetail.execute(tId, tSeasonNumber))
+        .thenAnswer((_) async => const Right(tTVSeasonDetail));
     // act
-    notifier.fetchTvSeasonDetail(tId, tSeasonNumber);
+    notifier.fetchTVSeasonDetail(tId, tSeasonNumber);
     // assert
     expect(notifier.state, RequestState.Loading);
     expect(listenerCallCount, 1);
@@ -49,22 +49,22 @@ void main() {
   test('should change tv season data when data is gotten successfully',
       () async {
     // arrange
-    when(mockGetTvSeasonDetail.execute(tId, tSeasonNumber))
-        .thenAnswer((_) async => const Right(tTvSeasonDetail));
+    when(mockGetTVSeasonDetail.execute(tId, tSeasonNumber))
+        .thenAnswer((_) async => const Right(tTVSeasonDetail));
     // act
-    await notifier.fetchTvSeasonDetail(tId, tSeasonNumber);
+    await notifier.fetchTVSeasonDetail(tId, tSeasonNumber);
     // assert
     expect(notifier.state, RequestState.Loaded);
-    expect(notifier.seasonDetail, tTvSeasonDetail);
+    expect(notifier.seasonDetail, tTVSeasonDetail);
     expect(listenerCallCount, 2);
   });
 
   test('should return error when data is unsuccessful', () async {
     // arrange
-    when(mockGetTvSeasonDetail.execute(tId, tSeasonNumber))
+    when(mockGetTVSeasonDetail.execute(tId, tSeasonNumber))
         .thenAnswer((_) async => const Left(ServerFailure('Server Failure')));
     // act
-    await notifier.fetchTvSeasonDetail(tId, tSeasonNumber);
+    await notifier.fetchTVSeasonDetail(tId, tSeasonNumber);
     // assert
     expect(notifier.state, RequestState.Error);
     expect(notifier.message, 'Server Failure');

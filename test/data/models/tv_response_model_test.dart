@@ -3,7 +3,7 @@ import 'package:ditonton/data/models/tv_response.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  const tTvModel = TvModel(
+  const tTVModel = TVModel(
     backdropPath: 'backdropPath',
     genreIds: [1, 2, 3],
     id: 1,
@@ -17,9 +17,9 @@ void main() {
     voteCount: 1,
   );
 
-  const tTvResponse = TvResponse(tvList: [tTvModel]);
+  const tTVResponse = TVResponse(tvList: [tTVModel]);
 
-  final tTvResponseJson = {
+  final tTVResponseJson = {
     "results": [
       {
         "backdrop_path": "backdropPath",
@@ -38,12 +38,12 @@ void main() {
   };
 
   test('should return a valid model from JSON', () async {
-    final result = TvResponse.fromJson(tTvResponseJson);
-    expect(result, tTvResponse);
+    final result = TVResponse.fromJson(tTVResponseJson);
+    expect(result, tTVResponse);
   });
 
   test('should return a JSON map containing proper data', () async {
-    final result = tTvResponse.toJson();
-    expect(result, tTvResponseJson);
+    final result = tTVResponse.toJson();
+    expect(result, tTVResponseJson);
   });
 }

@@ -15,7 +15,7 @@ void main() {
     voteCount: 1,
   );
 
-  const tTvSeasonDetailModel = TvSeasonDetailModel(
+  const tTVSeasonDetailModel = TVSeasonDetailModel(
     id: 1,
     name: "name",
     posterPath: "posterPath",
@@ -33,7 +33,7 @@ void main() {
     voteCount: 1,
   );
 
-  const tTvSeasonDetail = TvSeasonDetail(
+  const tTVSeasonDetail = TVSeasonDetail(
     id: 1,
     name: "name",
     posterPath: "posterPath",
@@ -41,8 +41,8 @@ void main() {
     episodes: [tEpisode],
   );
 
-  test('should be a subclass of TvSeasonDetail entity', () async {
-    final result = tTvSeasonDetailModel.toEntity();
-    expect(result, tTvSeasonDetail);
+  test('should be a subclass of TVSeasonDetail entity', () async {
+    final result = tTVSeasonDetailModel.toEntity();
+    expect(result, tTVSeasonDetail);
   });
 }

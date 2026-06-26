@@ -5,27 +5,27 @@ import 'package:ditonton/presentation/provider/tv_season_detail_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class TvSeasonDetailPage extends StatefulWidget {
+class TVSeasonDetailPage extends StatefulWidget {
   static const routeName = '/tv-season-detail';
 
   final int id;
   final int seasonNumber;
 
-  const TvSeasonDetailPage(
+  const TVSeasonDetailPage(
       {Key? key, required this.id, required this.seasonNumber})
       : super(key: key);
 
   @override
-  State<TvSeasonDetailPage> createState() => _TvSeasonDetailPageState();
+  State<TVSeasonDetailPage> createState() => _TVSeasonDetailPageState();
 }
 
-class _TvSeasonDetailPageState extends State<TvSeasonDetailPage> {
+class _TVSeasonDetailPageState extends State<TVSeasonDetailPage> {
   @override
   void initState() {
     super.initState();
     Future.microtask(() {
-      Provider.of<TvSeasonDetailNotifier>(context, listen: false)
-          .fetchTvSeasonDetail(widget.id, widget.seasonNumber);
+      Provider.of<TVSeasonDetailNotifier>(context, listen: false)
+          .fetchTVSeasonDetail(widget.id, widget.seasonNumber);
     });
   }
 
@@ -35,7 +35,7 @@ class _TvSeasonDetailPageState extends State<TvSeasonDetailPage> {
       appBar: AppBar(
         title: Text('Season ${widget.seasonNumber} Episodes'),
       ),
-      body: Consumer<TvSeasonDetailNotifier>(
+      body: Consumer<TVSeasonDetailNotifier>(
         builder: (context, provider, child) {
           if (provider.state == RequestState.Loading) {
             return const Center(

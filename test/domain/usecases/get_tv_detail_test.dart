@@ -7,23 +7,23 @@ import '../../dummy_data/dummy_tv_objects.dart';
 import '../../helpers/test_helper.mocks.dart';
 
 void main() {
-  late GetTvDetail usecase;
-  late MockTvRepository mockTvRepository;
+  late GetTVDetail usecase;
+  late MockTVRepository mockTVRepository;
 
   setUp(() {
-    mockTvRepository = MockTvRepository();
-    usecase = GetTvDetail(mockTvRepository);
+    mockTVRepository = MockTVRepository();
+    usecase = GetTVDetail(mockTVRepository);
   });
 
   const tId = 1;
 
   test('should get tv detail from the repository', () async {
     // arrange
-    when(mockTvRepository.getTvDetail(tId))
-        .thenAnswer((_) async => const Right(testTvDetail));
+    when(mockTVRepository.getTVDetail(tId))
+        .thenAnswer((_) async => const Right(testTVDetail));
     // act
     final result = await usecase.execute(tId);
     // assert
-    expect(result, const Right(testTvDetail));
+    expect(result, const Right(testTVDetail));
   });
 }

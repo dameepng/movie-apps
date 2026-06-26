@@ -3,25 +3,25 @@ import 'package:ditonton/domain/entities/tv.dart';
 import 'package:ditonton/domain/usecases/get_popular_tvs.dart';
 import 'package:flutter/foundation.dart';
 
-class PopularTvsNotifier extends ChangeNotifier {
-  final GetPopularTvs getPopularTvs;
+class PopularTVsNotifier extends ChangeNotifier {
+  final GetPopularTVs getPopularTVs;
 
-  PopularTvsNotifier(this.getPopularTvs);
+  PopularTVsNotifier(this.getPopularTVs);
 
   RequestState _state = RequestState.Empty;
   RequestState get state => _state;
 
-  List<Tv> _tvs = [];
-  List<Tv> get tvs => _tvs;
+  List<TV> _tvs = [];
+  List<TV> get tvs => _tvs;
 
   String _message = '';
   String get message => _message;
 
-  Future<void> fetchPopularTvs() async {
+  Future<void> fetchPopularTVs() async {
     _state = RequestState.Loading;
     notifyListeners();
 
-    final result = await getPopularTvs.execute();
+    final result = await getPopularTVs.execute();
 
     result.fold(
       (failure) {

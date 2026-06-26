@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 
 // ignore: must_be_immutable
-class Tv extends Equatable {
-  Tv({
+class TV extends Equatable {
+  TV({
     required this.backdropPath,
     required this.genreIds,
     required this.id,
@@ -16,7 +16,7 @@ class Tv extends Equatable {
     required this.voteCount,
   });
 
-  Tv.watchlist({
+  TV.watchlist({
     required this.id,
     required this.overview,
     required this.posterPath,

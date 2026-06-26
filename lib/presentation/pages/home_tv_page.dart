@@ -13,23 +13,23 @@ import 'package:ditonton/common/state_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class HomeTvPage extends StatefulWidget {
+class HomeTVPage extends StatefulWidget {
   static const routeName = '/home-tv';
 
-  const HomeTvPage({Key? key}) : super(key: key);
+  const HomeTVPage({Key? key}) : super(key: key);
 
   @override
-  State<HomeTvPage> createState() => _HomeTvPageState();
+  State<HomeTVPage> createState() => _HomeTVPageState();
 }
 
-class _HomeTvPageState extends State<HomeTvPage> {
+class _HomeTVPageState extends State<HomeTVPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() => Provider.of<TvListNotifier>(context, listen: false)
-      ..fetchOnTheAirTvs()
-      ..fetchPopularTvs()
-      ..fetchTopRatedTvs());
+    Future.microtask(() => Provider.of<TVListNotifier>(context, listen: false)
+      ..fetchOnTheAirTVs()
+      ..fetchPopularTVs()
+      ..fetchTopRatedTVs());
   }
 
   @override
@@ -67,7 +67,7 @@ class _HomeTvPageState extends State<HomeTvPage> {
               leading: const Icon(Icons.save_alt),
               title: const Text('Watchlist TV Series'),
               onTap: () {
-                Navigator.pushNamed(context, WatchlistTvsPage.routeName);
+                Navigator.pushNamed(context, WatchlistTVsPage.routeName);
               },
             ),
             ListTile(
@@ -85,7 +85,7 @@ class _HomeTvPageState extends State<HomeTvPage> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.pushNamed(context, SearchTvPage.routeName);
+              Navigator.pushNamed(context, SearchTVPage.routeName);
             },
             icon: const Icon(Icons.search),
           )
@@ -100,16 +100,16 @@ class _HomeTvPageState extends State<HomeTvPage> {
               _buildSubHeading(
                 title: 'On The Air',
                 onTap: () =>
-                    Navigator.pushNamed(context, OnTheAirTvsPage.routeName),
+                    Navigator.pushNamed(context, OnTheAirTVsPage.routeName),
               ),
-              Consumer<TvListNotifier>(builder: (context, data, child) {
+              Consumer<TVListNotifier>(builder: (context, data, child) {
                 final state = data.onTheAirState;
                 if (state == RequestState.Loading) {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
                 } else if (state == RequestState.Loaded) {
-                  return TvList(data.onTheAirTvs);
+                  return TVList(data.onTheAirTVs);
                 } else {
                   return const Text('Failed');
                 }
@@ -117,16 +117,16 @@ class _HomeTvPageState extends State<HomeTvPage> {
               _buildSubHeading(
                 title: 'Popular',
                 onTap: () =>
-                    Navigator.pushNamed(context, PopularTvsPage.routeName),
+                    Navigator.pushNamed(context, PopularTVsPage.routeName),
               ),
-              Consumer<TvListNotifier>(builder: (context, data, child) {
-                final state = data.popularTvsState;
+              Consumer<TVListNotifier>(builder: (context, data, child) {
+                final state = data.popularTVsState;
                 if (state == RequestState.Loading) {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
                 } else if (state == RequestState.Loaded) {
-                  return TvList(data.popularTvs);
+                  return TVList(data.popularTVs);
                 } else {
                   return const Text('Failed');
                 }
@@ -134,16 +134,16 @@ class _HomeTvPageState extends State<HomeTvPage> {
               _buildSubHeading(
                 title: 'Top Rated',
                 onTap: () =>
-                    Navigator.pushNamed(context, TopRatedTvsPage.routeName),
+                    Navigator.pushNamed(context, TopRatedTVsPage.routeName),
               ),
-              Consumer<TvListNotifier>(builder: (context, data, child) {
-                final state = data.topRatedTvsState;
+              Consumer<TVListNotifier>(builder: (context, data, child) {
+                final state = data.topRatedTVsState;
                 if (state == RequestState.Loading) {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
                 } else if (state == RequestState.Loaded) {
-                  return TvList(data.topRatedTvs);
+                  return TVList(data.topRatedTVs);
                 } else {
                   return const Text('Failed');
                 }
@@ -177,10 +177,10 @@ class _HomeTvPageState extends State<HomeTvPage> {
   }
 }
 
-class TvList extends StatelessWidget {
-  final List<Tv> tvs;
+class TVList extends StatelessWidget {
+  final List<TV> tvs;
 
-  const TvList(this.tvs, {Key? key}) : super(key: key);
+  const TVList(this.tvs, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -196,7 +196,7 @@ class TvList extends StatelessWidget {
               onTap: () {
                 Navigator.pushNamed(
                   context,
-                  TvDetailPage.routeName,
+                  TVDetailPage.routeName,
                   arguments: tv.id,
                 );
               },

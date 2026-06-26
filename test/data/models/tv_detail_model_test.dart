@@ -7,7 +7,7 @@ import 'package:ditonton/domain/entities/tv_detail.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  const tTvDetailResponse = TvDetailResponse(
+  const tTVDetailResponse = TVDetailResponse(
     backdropPath: 'backdropPath',
     genres: [GenreModel(id: 1, name: 'Action')],
     id: 1,
@@ -30,7 +30,7 @@ void main() {
     ],
   );
 
-  const tTvDetail = TvDetail(
+  const tTVDetail = TVDetail(
     backdropPath: 'backdropPath',
     genres: [Genre(id: 1, name: 'Action')],
     id: 1,
@@ -53,7 +53,7 @@ void main() {
     ],
   );
 
-  final tTvDetailJson = {
+  final tTVDetailJson = {
     "backdrop_path": "backdropPath",
     "genres": [
       {
@@ -81,18 +81,18 @@ void main() {
     ],
   };
 
-  test('should be a subclass of TvDetail entity', () async {
-    final result = tTvDetailResponse.toEntity();
-    expect(result, tTvDetail);
+  test('should be a subclass of TVDetail entity', () async {
+    final result = tTVDetailResponse.toEntity();
+    expect(result, tTVDetail);
   });
 
   test('should return a valid model from JSON', () async {
-    final result = TvDetailResponse.fromJson(tTvDetailJson);
-    expect(result, tTvDetailResponse);
+    final result = TVDetailResponse.fromJson(tTVDetailJson);
+    expect(result, tTVDetailResponse);
   });
 
   test('should return a JSON map containing proper data', () async {
-    final result = tTvDetailResponse.toJson();
-    expect(result, tTvDetailJson);
+    final result = tTVDetailResponse.toJson();
+    expect(result, tTVDetailJson);
   });
 }

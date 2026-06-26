@@ -20,7 +20,7 @@ class DatabaseHelper {
   }
 
   static const String _tblWatchlist = 'watchlist';
-  static const String _tblTvWatchlist = 'tv_watchlist';
+  static const String _tblTVWatchlist = 'tv_watchlist';
 
   Future<Database> _initDb() async {
     final path = await getDatabasesPath();
@@ -40,7 +40,7 @@ class DatabaseHelper {
       );
     ''');
     await db.execute('''
-      CREATE TABLE  $_tblTvWatchlist (
+      CREATE TABLE  $_tblTVWatchlist (
         id INTEGER PRIMARY KEY,
         name TEXT,
         overview TEXT,
@@ -85,24 +85,24 @@ class DatabaseHelper {
     return results;
   }
 
-  Future<int> insertTvWatchlist(TvTable tv) async {
+  Future<int> insertTVWatchlist(TVTable tv) async {
     final db = await database;
-    return await db!.insert(_tblTvWatchlist, tv.toJson());
+    return await db!.insert(_tblTVWatchlist, tv.toJson());
   }
 
-  Future<int> removeTvWatchlist(TvTable tv) async {
+  Future<int> removeTVWatchlist(TVTable tv) async {
     final db = await database;
     return await db!.delete(
-      _tblTvWatchlist,
+      _tblTVWatchlist,
       where: 'id = ?',
       whereArgs: [tv.id],
     );
   }
 
-  Future<Map<String, dynamic>?> getTvById(int id) async {
+  Future<Map<String, dynamic>?> getTVById(int id) async {
     final db = await database;
     final results = await db!.query(
-      _tblTvWatchlist,
+      _tblTVWatchlist,
       where: 'id = ?',
       whereArgs: [id],
     );
@@ -114,9 +114,9 @@ class DatabaseHelper {
     }
   }
 
-  Future<List<Map<String, dynamic>>> getWatchlistTvs() async {
+  Future<List<Map<String, dynamic>>> getWatchlistTVs() async {
     final db = await database;
-    final List<Map<String, dynamic>> results = await db!.query(_tblTvWatchlist);
+    final List<Map<String, dynamic>> results = await db!.query(_tblTVWatchlist);
 
     return results;
   }

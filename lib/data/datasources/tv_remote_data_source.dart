@@ -7,102 +7,102 @@ import 'package:ditonton/common/env.dart';
 import 'package:ditonton/common/exception.dart';
 import 'package:http/http.dart' as http;
 
-abstract class TvRemoteDataSource {
-  Future<List<TvModel>> getOnTheAirTvs();
-  Future<List<TvModel>> getPopularTvs();
-  Future<List<TvModel>> getTopRatedTvs();
-  Future<TvDetailResponse> getTvDetail(int id);
-  Future<List<TvModel>> getTvRecommendations(int id);
-  Future<List<TvModel>> searchTvs(String query);
-  Future<TvSeasonDetailModel> getTvSeasonDetail(int id, int seasonNumber);
+abstract class TVRemoteDataSource {
+  Future<List<TVModel>> getOnTheAirTVs();
+  Future<List<TVModel>> getPopularTVs();
+  Future<List<TVModel>> getTopRatedTVs();
+  Future<TVDetailResponse> getTVDetail(int id);
+  Future<List<TVModel>> getTVRecommendations(int id);
+  Future<List<TVModel>> searchTVs(String query);
+  Future<TVSeasonDetailModel> getTVSeasonDetail(int id, int seasonNumber);
 }
 
-class TvRemoteDataSourceImpl implements TvRemoteDataSource {
+class TVRemoteDataSourceImpl implements TVRemoteDataSource {
   static const BASE_URL = 'https://api.themoviedb.org/3';
 
   final http.Client client;
 
-  TvRemoteDataSourceImpl({required this.client});
+  TVRemoteDataSourceImpl({required this.client});
 
   @override
-  Future<List<TvModel>> getOnTheAirTvs() async {
+  Future<List<TVModel>> getOnTheAirTVs() async {
     final response =
         await client.get(Uri.parse('$BASE_URL/tv/on_the_air?$API_KEY'));
 
     if (response.statusCode == 200) {
-      return TvResponse.fromJson(json.decode(response.body)).tvList;
+      return TVResponse.fromJson(json.decode(response.body)).tvList;
     } else {
       throw ServerException();
     }
   }
 
   @override
-  Future<List<TvModel>> getPopularTvs() async {
+  Future<List<TVModel>> getPopularTVs() async {
     final response =
         await client.get(Uri.parse('$BASE_URL/tv/popular?$API_KEY'));
 
     if (response.statusCode == 200) {
-      return TvResponse.fromJson(json.decode(response.body)).tvList;
+      return TVResponse.fromJson(json.decode(response.body)).tvList;
     } else {
       throw ServerException();
     }
   }
 
   @override
-  Future<List<TvModel>> getTopRatedTvs() async {
+  Future<List<TVModel>> getTopRatedTVs() async {
     final response =
         await client.get(Uri.parse('$BASE_URL/tv/top_rated?$API_KEY'));
 
     if (response.statusCode == 200) {
-      return TvResponse.fromJson(json.decode(response.body)).tvList;
+      return TVResponse.fromJson(json.decode(response.body)).tvList;
     } else {
       throw ServerException();
     }
   }
 
   @override
-  Future<TvDetailResponse> getTvDetail(int id) async {
+  Future<TVDetailResponse> getTVDetail(int id) async {
     final response = await client.get(Uri.parse('$BASE_URL/tv/$id?$API_KEY'));
 
     if (response.statusCode == 200) {
-      return TvDetailResponse.fromJson(json.decode(response.body));
+      return TVDetailResponse.fromJson(json.decode(response.body));
     } else {
       throw ServerException();
     }
   }
 
   @override
-  Future<List<TvModel>> getTvRecommendations(int id) async {
+  Future<List<TVModel>> getTVRecommendations(int id) async {
     final response = await client
         .get(Uri.parse('$BASE_URL/tv/$id/recommendations?$API_KEY'));
 
     if (response.statusCode == 200) {
-      return TvResponse.fromJson(json.decode(response.body)).tvList;
+      return TVResponse.fromJson(json.decode(response.body)).tvList;
     } else {
       throw ServerException();
     }
   }
 
   @override
-  Future<List<TvModel>> searchTvs(String query) async {
+  Future<List<TVModel>> searchTVs(String query) async {
     final response = await client
         .get(Uri.parse('$BASE_URL/search/tv?$API_KEY&query=$query'));
 
     if (response.statusCode == 200) {
-      return TvResponse.fromJson(json.decode(response.body)).tvList;
+      return TVResponse.fromJson(json.decode(response.body)).tvList;
     } else {
       throw ServerException();
     }
   }
 
   @override
-  Future<TvSeasonDetailModel> getTvSeasonDetail(
+  Future<TVSeasonDetailModel> getTVSeasonDetail(
       int id, int seasonNumber) async {
     final response = await client
         .get(Uri.parse('$BASE_URL/tv/$id/season/$seasonNumber?$API_KEY'));
 
     if (response.statusCode == 200) {
-      return TvSeasonDetailModel.fromJson(json.decode(response.body));
+      return TVSeasonDetailModel.fromJson(json.decode(response.body));
     } else {
       throw ServerException();
     }

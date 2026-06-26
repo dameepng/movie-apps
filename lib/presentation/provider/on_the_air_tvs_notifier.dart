@@ -3,25 +3,25 @@ import 'package:ditonton/domain/entities/tv.dart';
 import 'package:ditonton/domain/usecases/get_on_the_air_tvs.dart';
 import 'package:flutter/foundation.dart';
 
-class OnTheAirTvsNotifier extends ChangeNotifier {
-  final GetOnTheAirTvs getOnTheAirTvs;
+class OnTheAirTVsNotifier extends ChangeNotifier {
+  final GetOnTheAirTVs getOnTheAirTVs;
 
-  OnTheAirTvsNotifier(this.getOnTheAirTvs);
+  OnTheAirTVsNotifier(this.getOnTheAirTVs);
 
   RequestState _state = RequestState.Empty;
   RequestState get state => _state;
 
-  List<Tv> _tvs = [];
-  List<Tv> get tvs => _tvs;
+  List<TV> _tvs = [];
+  List<TV> get tvs => _tvs;
 
   String _message = '';
   String get message => _message;
 
-  Future<void> fetchOnTheAirTvs() async {
+  Future<void> fetchOnTheAirTVs() async {
     _state = RequestState.Loading;
     notifyListeners();
 
-    final result = await getOnTheAirTvs.execute();
+    final result = await getOnTheAirTVs.execute();
 
     result.fold(
       (failure) {

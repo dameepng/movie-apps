@@ -3,8 +3,8 @@ import 'package:ditonton/data/models/season_model.dart';
 import 'package:ditonton/domain/entities/tv_detail.dart';
 import 'package:equatable/equatable.dart';
 
-class TvDetailResponse extends Equatable {
-  const TvDetailResponse({
+class TVDetailResponse extends Equatable {
+  const TVDetailResponse({
     required this.backdropPath,
     required this.genres,
     required this.id,
@@ -30,8 +30,8 @@ class TvDetailResponse extends Equatable {
   final int voteCount;
   final List<SeasonModel> seasons;
 
-  factory TvDetailResponse.fromJson(Map<String, dynamic> json) =>
-      TvDetailResponse(
+  factory TVDetailResponse.fromJson(Map<String, dynamic> json) =>
+      TVDetailResponse(
         backdropPath: json["backdrop_path"],
         genres: List<GenreModel>.from(
             json["genres"].map((x) => GenreModel.fromJson(x))),
@@ -61,8 +61,8 @@ class TvDetailResponse extends Equatable {
         "seasons": List<dynamic>.from(seasons.map((x) => x.toJson())),
       };
 
-  TvDetail toEntity() {
-    return TvDetail(
+  TVDetail toEntity() {
+    return TVDetail(
       backdropPath: backdropPath,
       genres: genres.map((genre) => genre.toEntity()).toList(),
       id: id,

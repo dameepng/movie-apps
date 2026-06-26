@@ -9,24 +9,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 
-class TvDetailPage extends StatefulWidget {
+class TVDetailPage extends StatefulWidget {
   static const routeName = '/tv-detail';
 
   final int id;
-  const TvDetailPage({Key? key, required this.id}) : super(key: key);
+  const TVDetailPage({Key? key, required this.id}) : super(key: key);
 
   @override
-  State<TvDetailPage> createState() => _TvDetailPageState();
+  State<TVDetailPage> createState() => _TVDetailPageState();
 }
 
-class _TvDetailPageState extends State<TvDetailPage> {
+class _TVDetailPageState extends State<TVDetailPage> {
   @override
   void initState() {
     super.initState();
     Future.microtask(() {
-      Provider.of<TvDetailNotifier>(context, listen: false)
-          .fetchTvDetail(widget.id);
-      Provider.of<TvDetailNotifier>(context, listen: false)
+      Provider.of<TVDetailNotifier>(context, listen: false)
+          .fetchTVDetail(widget.id);
+      Provider.of<TVDetailNotifier>(context, listen: false)
           .loadWatchlistStatus(widget.id);
     });
   }
@@ -34,7 +34,7 @@ class _TvDetailPageState extends State<TvDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Consumer<TvDetailNotifier>(
+      body: Consumer<TVDetailNotifier>(
         builder: (context, provider, child) {
           if (provider.tvState == RequestState.Loading) {
             return const Center(
@@ -59,8 +59,8 @@ class _TvDetailPageState extends State<TvDetailPage> {
 }
 
 class DetailContent extends StatelessWidget {
-  final TvDetail tv;
-  final List<Tv> recommendations;
+  final TVDetail tv;
+  final List<TV> recommendations;
   final bool isAddedWatchlist;
 
   const DetailContent(this.tv, this.recommendations, this.isAddedWatchlist,
@@ -110,25 +110,25 @@ class DetailContent extends StatelessWidget {
                             FilledButton(
                               onPressed: () async {
                                 if (!isAddedWatchlist) {
-                                  await Provider.of<TvDetailNotifier>(context,
+                                  await Provider.of<TVDetailNotifier>(context,
                                           listen: false)
                                       .addWatchlist(tv);
                                 } else {
-                                  await Provider.of<TvDetailNotifier>(context,
+                                  await Provider.of<TVDetailNotifier>(context,
                                           listen: false)
                                       .removeFromWatchlist(tv);
                                 }
 
-                                final message = Provider.of<TvDetailNotifier>(
+                                final message = Provider.of<TVDetailNotifier>(
                                         context,
                                         listen: false)
                                     .watchlistMessage;
 
                                 if (message ==
-                                        TvDetailNotifier
+                                        TVDetailNotifier
                                             .watchlistAddSuccessMessage ||
                                     message ==
-                                        TvDetailNotifier
+                                        TVDetailNotifier
                                             .watchlistRemoveSuccessMessage) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(content: Text(message)));
@@ -268,7 +268,7 @@ class DetailContent extends StatelessWidget {
                               'Recommendations',
                               style: kHeading6,
                             ),
-                            Consumer<TvDetailNotifier>(
+                            Consumer<TVDetailNotifier>(
                               builder: (context, data, child) {
                                 if (data.recommendationState ==
                                     RequestState.Loading) {
@@ -292,7 +292,7 @@ class DetailContent extends StatelessWidget {
                                             onTap: () {
                                               Navigator.pushReplacementNamed(
                                                 context,
-                                                TvDetailPage.routeName,
+                                                TVDetailPage.routeName,
                                                 arguments: tvRec.id,
                                               );
                                             },

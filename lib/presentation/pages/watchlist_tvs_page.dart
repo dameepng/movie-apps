@@ -5,23 +5,23 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ditonton/common/utils.dart';
 
-class WatchlistTvsPage extends StatefulWidget {
+class WatchlistTVsPage extends StatefulWidget {
   static const routeName = '/watchlist-tv';
 
-  const WatchlistTvsPage({Key? key}) : super(key: key);
+  const WatchlistTVsPage({Key? key}) : super(key: key);
 
   @override
-  State<WatchlistTvsPage> createState() => _WatchlistTvsPageState();
+  State<WatchlistTVsPage> createState() => _WatchlistTVsPageState();
 }
 
-class _WatchlistTvsPageState extends State<WatchlistTvsPage> with RouteAware {
+class _WatchlistTVsPageState extends State<WatchlistTVsPage> with RouteAware {
   @override
   void initState() {
     super.initState();
     Future.microtask(() {
       if (!mounted) return;
-      Provider.of<WatchlistTvNotifier>(context, listen: false)
-          .fetchWatchlistTvs();
+      Provider.of<WatchlistTVNotifier>(context, listen: false)
+          .fetchWatchlistTVs();
     });
   }
 
@@ -33,8 +33,8 @@ class _WatchlistTvsPageState extends State<WatchlistTvsPage> with RouteAware {
 
   @override
   void didPopNext() {
-    Provider.of<WatchlistTvNotifier>(context, listen: false)
-        .fetchWatchlistTvs();
+    Provider.of<WatchlistTVNotifier>(context, listen: false)
+        .fetchWatchlistTVs();
   }
 
   @override
@@ -45,14 +45,14 @@ class _WatchlistTvsPageState extends State<WatchlistTvsPage> with RouteAware {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<WatchlistTvNotifier>(
+        child: Consumer<WatchlistTVNotifier>(
           builder: (context, data, child) {
             if (data.watchlistState == RequestState.Loading) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
             } else if (data.watchlistState == RequestState.Loaded) {
-              if (data.watchlistTvs.isEmpty) {
+              if (data.watchlistTVs.isEmpty) {
                 return const Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -67,10 +67,10 @@ class _WatchlistTvsPageState extends State<WatchlistTvsPage> with RouteAware {
               }
               return ListView.builder(
                 itemBuilder: (context, index) {
-                  final tv = data.watchlistTvs[index];
-                  return TvCard(tv);
+                  final tv = data.watchlistTVs[index];
+                  return TVCard(tv);
                 },
-                itemCount: data.watchlistTvs.length,
+                itemCount: data.watchlistTVs.length,
               );
             } else {
               return Center(

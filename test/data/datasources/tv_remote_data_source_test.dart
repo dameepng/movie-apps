@@ -10,27 +10,27 @@ import '../../helpers/test_helper.mocks.dart';
 void main() {
   const baseUrl = 'https://api.themoviedb.org/3';
 
-  late TvRemoteDataSourceImpl dataSource;
+  late TVRemoteDataSourceImpl dataSource;
   late MockHttpClient mockHttpClient;
 
   setUp(() {
     mockHttpClient = MockHttpClient();
-    dataSource = TvRemoteDataSourceImpl(client: mockHttpClient);
+    dataSource = TVRemoteDataSourceImpl(client: mockHttpClient);
   });
 
-  final tTvList = const TvResponse(tvList: []).tvList;
+  final tTVList = const TVResponse(tvList: []).tvList;
   const tQuery = 'spiderman';
 
-  group('get On The Air Tvs', () {
-    test('should return list of Tv Model when the response code is 200',
+  group('get On The Air TVs', () {
+    test('should return list of TV Model when the response code is 200',
         () async {
       // arrange
       when(mockHttpClient.get(Uri.parse('$baseUrl/tv/on_the_air?$API_KEY')))
           .thenAnswer((_) async => http.Response('{"results": []}', 200));
       // act
-      final result = await dataSource.getOnTheAirTvs();
+      final result = await dataSource.getOnTheAirTVs();
       // assert
-      expect(result, equals(tTvList));
+      expect(result, equals(tTVList));
     });
 
     test(
@@ -40,21 +40,21 @@ void main() {
       when(mockHttpClient.get(Uri.parse('$baseUrl/tv/on_the_air?$API_KEY')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
       // act
-      final call = dataSource.getOnTheAirTvs();
+      final call = dataSource.getOnTheAirTVs();
       // assert
       expect(() => call, throwsA(isA<ServerException>()));
     });
   });
 
-  group('get Popular Tvs', () {
+  group('get Popular TVs', () {
     test('should return list of tvs when response is success (200)', () async {
       // arrange
       when(mockHttpClient.get(Uri.parse('$baseUrl/tv/popular?$API_KEY')))
           .thenAnswer((_) async => http.Response('{"results": []}', 200));
       // act
-      final result = await dataSource.getPopularTvs();
+      final result = await dataSource.getPopularTVs();
       // assert
-      expect(result, tTvList);
+      expect(result, tTVList);
     });
 
     test(
@@ -64,21 +64,21 @@ void main() {
       when(mockHttpClient.get(Uri.parse('$baseUrl/tv/popular?$API_KEY')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
       // act
-      final call = dataSource.getPopularTvs();
+      final call = dataSource.getPopularTVs();
       // assert
       expect(() => call, throwsA(isA<ServerException>()));
     });
   });
 
-  group('get Top Rated Tvs', () {
+  group('get Top Rated TVs', () {
     test('should return list of tvs when response code is 200 ', () async {
       // arrange
       when(mockHttpClient.get(Uri.parse('$baseUrl/tv/top_rated?$API_KEY')))
           .thenAnswer((_) async => http.Response('{"results": []}', 200));
       // act
-      final result = await dataSource.getTopRatedTvs();
+      final result = await dataSource.getTopRatedTVs();
       // assert
-      expect(result, tTvList);
+      expect(result, tTVList);
     });
 
     test('should throw ServerException when response code is other than 200',
@@ -87,13 +87,13 @@ void main() {
       when(mockHttpClient.get(Uri.parse('$baseUrl/tv/top_rated?$API_KEY')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
       // act
-      final call = dataSource.getTopRatedTvs();
+      final call = dataSource.getTopRatedTVs();
       // assert
       expect(() => call, throwsA(isA<ServerException>()));
     });
   });
 
-  group('get Tv detail', () {
+  group('get TV detail', () {
     const tId = 1;
 
     test('should throw Server Exception when the response code is 404 or other',
@@ -102,7 +102,7 @@ void main() {
       when(mockHttpClient.get(Uri.parse('$baseUrl/tv/$tId?$API_KEY')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
       // act
-      final call = dataSource.getTvDetail(tId);
+      final call = dataSource.getTVDetail(tId);
       // assert
       expect(() => call, throwsA(isA<ServerException>()));
     });
@@ -111,16 +111,16 @@ void main() {
   group('get tv recommendations', () {
     const tId = 1;
 
-    test('should return list of Tv Model when the response code is 200',
+    test('should return list of TV Model when the response code is 200',
         () async {
       // arrange
       when(mockHttpClient
               .get(Uri.parse('$baseUrl/tv/$tId/recommendations?$API_KEY')))
           .thenAnswer((_) async => http.Response('{"results": []}', 200));
       // act
-      final result = await dataSource.getTvRecommendations(tId);
+      final result = await dataSource.getTVRecommendations(tId);
       // assert
-      expect(result, equals(tTvList));
+      expect(result, equals(tTVList));
     });
 
     test('should throw Server Exception when the response code is 404 or other',
@@ -130,7 +130,7 @@ void main() {
               .get(Uri.parse('$baseUrl/tv/$tId/recommendations?$API_KEY')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
       // act
-      final call = dataSource.getTvRecommendations(tId);
+      final call = dataSource.getTVRecommendations(tId);
       // assert
       expect(() => call, throwsA(isA<ServerException>()));
     });
@@ -143,9 +143,9 @@ void main() {
               .get(Uri.parse('$baseUrl/search/tv?$API_KEY&query=$tQuery')))
           .thenAnswer((_) async => http.Response('{"results": []}', 200));
       // act
-      final result = await dataSource.searchTvs(tQuery);
+      final result = await dataSource.searchTVs(tQuery);
       // assert
-      expect(result, tTvList);
+      expect(result, tTVList);
     });
 
     test('should throw ServerException when response code is other than 200',
@@ -155,7 +155,7 @@ void main() {
               .get(Uri.parse('$baseUrl/search/tv?$API_KEY&query=$tQuery')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
       // act
-      final call = dataSource.searchTvs(tQuery);
+      final call = dataSource.searchTVs(tQuery);
       // assert
       expect(() => call, throwsA(isA<ServerException>()));
     });

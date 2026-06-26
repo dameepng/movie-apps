@@ -7,20 +7,20 @@ import '../../dummy_data/dummy_tv_objects.dart';
 import '../../helpers/test_helper.mocks.dart';
 
 void main() {
-  late SaveTvWatchlist usecase;
-  late MockTvRepository mockTvRepository;
+  late SaveTVWatchlist usecase;
+  late MockTVRepository mockTVRepository;
 
   setUp(() {
-    mockTvRepository = MockTvRepository();
-    usecase = SaveTvWatchlist(mockTvRepository);
+    mockTVRepository = MockTVRepository();
+    usecase = SaveTVWatchlist(mockTVRepository);
   });
 
   test('should save tv to the repository', () async {
     // arrange
-    when(mockTvRepository.saveWatchlist(testTvDetail))
+    when(mockTVRepository.saveWatchlist(testTVDetail))
         .thenAnswer((_) async => const Right('Added to Watchlist'));
     // act
-    final result = await usecase.execute(testTvDetail);
+    final result = await usecase.execute(testTVDetail);
     // assert
     expect(result, const Right('Added to Watchlist'));
   });

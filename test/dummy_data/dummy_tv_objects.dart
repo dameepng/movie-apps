@@ -4,7 +4,7 @@ import 'package:ditonton/domain/entities/season.dart';
 import 'package:ditonton/domain/entities/tv.dart';
 import 'package:ditonton/domain/entities/tv_detail.dart';
 
-final testTv = Tv(
+final testTV = TV(
   backdropPath: '/muth4OYamXf41G2evdrLEg8d3om.jpg',
   genreIds: const [14, 28],
   id: 557,
@@ -19,9 +19,9 @@ final testTv = Tv(
   voteCount: 13507,
 );
 
-final testTvList = [testTv];
+final testTVList = [testTV];
 
-const testTvDetail = TvDetail(
+const testTVDetail = TVDetail(
   backdropPath: 'backdropPath',
   genres: [Genre(id: 1, name: 'Action')],
   id: 1,
@@ -44,21 +44,21 @@ const testTvDetail = TvDetail(
   ],
 );
 
-final testWatchlistTv = Tv.watchlist(
+final testWatchlistTV = TV.watchlist(
   id: 1,
   name: 'name',
   posterPath: 'posterPath',
   overview: 'overview',
 );
 
-const testTvTable = TvTable(
+const testTVTable = TVTable(
   id: 1,
   name: 'name',
   posterPath: 'posterPath',
   overview: 'overview',
 );
 
-final testTvMap = {
+final testTVMap = {
   'id': 1,
   'overview': 'overview',
   'posterPath': 'posterPath',

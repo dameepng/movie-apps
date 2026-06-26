@@ -66,28 +66,28 @@ class MyApp extends StatelessWidget {
           create: (_) => di.locator<WatchlistMovieNotifier>(),
         ),
         ChangeNotifierProvider(
-          create: (_) => di.locator<TvListNotifier>(),
+          create: (_) => di.locator<TVListNotifier>(),
         ),
         ChangeNotifierProvider(
-          create: (_) => di.locator<TvDetailNotifier>(),
+          create: (_) => di.locator<TVDetailNotifier>(),
         ),
         ChangeNotifierProvider(
-          create: (_) => di.locator<TvSeasonDetailNotifier>(),
+          create: (_) => di.locator<TVSeasonDetailNotifier>(),
         ),
         ChangeNotifierProvider(
-          create: (_) => di.locator<TvSearchNotifier>(),
+          create: (_) => di.locator<TVSearchNotifier>(),
         ),
         ChangeNotifierProvider(
-          create: (_) => di.locator<TopRatedTvsNotifier>(),
+          create: (_) => di.locator<TopRatedTVsNotifier>(),
         ),
         ChangeNotifierProvider(
-          create: (_) => di.locator<OnTheAirTvsNotifier>(),
+          create: (_) => di.locator<OnTheAirTVsNotifier>(),
         ),
         ChangeNotifierProvider(
-          create: (_) => di.locator<PopularTvsNotifier>(),
+          create: (_) => di.locator<PopularTVsNotifier>(),
         ),
         ChangeNotifierProvider(
-          create: (_) => di.locator<WatchlistTvNotifier>(),
+          create: (_) => di.locator<WatchlistTVNotifier>(),
         ),
       ],
       child: MaterialApp(
@@ -122,36 +122,36 @@ class MyApp extends StatelessWidget {
             case WatchlistMoviesPage.routeName:
               return MaterialPageRoute(
                   builder: (_) => const WatchlistMoviesPage());
-            case HomeTvPage.routeName:
-              return MaterialPageRoute(builder: (_) => const HomeTvPage());
-            case OnTheAirTvsPage.routeName:
+            case HomeTVPage.routeName:
+              return MaterialPageRoute(builder: (_) => const HomeTVPage());
+            case OnTheAirTVsPage.routeName:
               return CupertinoPageRoute(
-                  builder: (_) => const OnTheAirTvsPage());
-            case PopularTvsPage.routeName:
-              return CupertinoPageRoute(builder: (_) => const PopularTvsPage());
-            case TopRatedTvsPage.routeName:
+                  builder: (_) => const OnTheAirTVsPage());
+            case PopularTVsPage.routeName:
+              return CupertinoPageRoute(builder: (_) => const PopularTVsPage());
+            case TopRatedTVsPage.routeName:
               return CupertinoPageRoute(
-                  builder: (_) => const TopRatedTvsPage());
-            case TvDetailPage.routeName:
+                  builder: (_) => const TopRatedTVsPage());
+            case TVDetailPage.routeName:
               final id = settings.arguments as int;
               return MaterialPageRoute(
-                builder: (_) => TvDetailPage(id: id),
+                builder: (_) => TVDetailPage(id: id),
                 settings: settings,
               );
-            case TvSeasonDetailPage.routeName:
+            case TVSeasonDetailPage.routeName:
               final args = settings.arguments as Map<String, dynamic>;
               return MaterialPageRoute(
-                builder: (_) => TvSeasonDetailPage(
+                builder: (_) => TVSeasonDetailPage(
                   id: args['id'],
                   seasonNumber: args['seasonNumber'],
                 ),
                 settings: settings,
               );
-            case SearchTvPage.routeName:
-              return CupertinoPageRoute(builder: (_) => const SearchTvPage());
-            case WatchlistTvsPage.routeName:
+            case SearchTVPage.routeName:
+              return CupertinoPageRoute(builder: (_) => const SearchTVPage());
+            case WatchlistTVsPage.routeName:
               return MaterialPageRoute(
-                  builder: (_) => const WatchlistTvsPage());
+                  builder: (_) => const WatchlistTVsPage());
             case AboutPage.routeName:
               return MaterialPageRoute(builder: (_) => const AboutPage());
             default:

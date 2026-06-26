@@ -3,9 +3,9 @@ import 'package:ditonton/domain/entities/tv.dart';
 import 'package:ditonton/domain/usecases/get_watchlist_tvs.dart';
 import 'package:flutter/foundation.dart';
 
-class WatchlistTvNotifier extends ChangeNotifier {
-  var _watchlistTvs = <Tv>[];
-  List<Tv> get watchlistTvs => _watchlistTvs;
+class WatchlistTVNotifier extends ChangeNotifier {
+  var _watchlistTVs = <TV>[];
+  List<TV> get watchlistTVs => _watchlistTVs;
 
   var _watchlistState = RequestState.Empty;
   RequestState get watchlistState => _watchlistState;
@@ -13,15 +13,15 @@ class WatchlistTvNotifier extends ChangeNotifier {
   String _message = '';
   String get message => _message;
 
-  WatchlistTvNotifier({required this.getWatchlistTvs});
+  WatchlistTVNotifier({required this.getWatchlistTVs});
 
-  final GetWatchlistTvs getWatchlistTvs;
+  final GetWatchlistTVs getWatchlistTVs;
 
-  Future<void> fetchWatchlistTvs() async {
+  Future<void> fetchWatchlistTVs() async {
     _watchlistState = RequestState.Loading;
     notifyListeners();
 
-    final result = await getWatchlistTvs.execute();
+    final result = await getWatchlistTVs.execute();
     result.fold(
       (failure) {
         _watchlistState = RequestState.Error;
@@ -30,7 +30,7 @@ class WatchlistTvNotifier extends ChangeNotifier {
       },
       (tvsData) {
         _watchlistState = RequestState.Loaded;
-        _watchlistTvs = tvsData;
+        _watchlistTVs = tvsData;
         notifyListeners();
       },
     );

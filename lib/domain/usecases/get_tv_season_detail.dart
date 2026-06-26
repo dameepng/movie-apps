@@ -3,12 +3,12 @@ import 'package:ditonton/common/failure.dart';
 import 'package:ditonton/domain/entities/tv_season_detail.dart';
 import 'package:ditonton/domain/repositories/tv_repository.dart';
 
-class GetTvSeasonDetail {
-  final TvRepository repository;
+class GetTVSeasonDetail {
+  final TVRepository repository;
 
-  GetTvSeasonDetail(this.repository);
+  GetTVSeasonDetail(this.repository);
 
-  Future<Either<Failure, TvSeasonDetail>> execute(int id, int seasonNumber) {
-    return repository.getTvSeasonDetail(id, seasonNumber);
+  Future<Either<Failure, TVSeasonDetail>> execute(int id, int seasonNumber) {
+    return repository.getTVSeasonDetail(id, seasonNumber);
   }
 }

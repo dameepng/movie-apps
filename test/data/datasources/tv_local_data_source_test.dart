@@ -7,22 +7,22 @@ import '../../dummy_data/dummy_tv_objects.dart';
 import '../../helpers/test_helper.mocks.dart';
 
 void main() {
-  late TvLocalDataSourceImpl dataSource;
+  late TVLocalDataSourceImpl dataSource;
   late MockDatabaseHelper mockDatabaseHelper;
 
   setUp(() {
     mockDatabaseHelper = MockDatabaseHelper();
-    dataSource = TvLocalDataSourceImpl(databaseHelper: mockDatabaseHelper);
+    dataSource = TVLocalDataSourceImpl(databaseHelper: mockDatabaseHelper);
   });
 
   group('save watchlist', () {
     test('should return success message when insert to database is success',
         () async {
       // arrange
-      when(mockDatabaseHelper.insertTvWatchlist(testTvTable))
+      when(mockDatabaseHelper.insertTVWatchlist(testTVTable))
           .thenAnswer((_) async => 1);
       // act
-      final result = await dataSource.insertWatchlist(testTvTable);
+      final result = await dataSource.insertWatchlist(testTVTable);
       // assert
       expect(result, 'Added to Watchlist');
     });
@@ -30,10 +30,10 @@ void main() {
     test('should throw DatabaseException when insert to database is failed',
         () async {
       // arrange
-      when(mockDatabaseHelper.insertTvWatchlist(testTvTable))
+      when(mockDatabaseHelper.insertTVWatchlist(testTVTable))
           .thenThrow(Exception());
       // act
-      final call = dataSource.insertWatchlist(testTvTable);
+      final call = dataSource.insertWatchlist(testTVTable);
       // assert
       expect(() => call, throwsA(isA<DatabaseException>()));
     });
@@ -43,10 +43,10 @@ void main() {
     test('should return success message when remove from database is success',
         () async {
       // arrange
-      when(mockDatabaseHelper.removeTvWatchlist(testTvTable))
+      when(mockDatabaseHelper.removeTVWatchlist(testTVTable))
           .thenAnswer((_) async => 1);
       // act
-      final result = await dataSource.removeWatchlist(testTvTable);
+      final result = await dataSource.removeWatchlist(testTVTable);
       // assert
       expect(result, 'Removed from Watchlist');
     });
@@ -54,47 +54,47 @@ void main() {
     test('should throw DatabaseException when remove from database is failed',
         () async {
       // arrange
-      when(mockDatabaseHelper.removeTvWatchlist(testTvTable))
+      when(mockDatabaseHelper.removeTVWatchlist(testTVTable))
           .thenThrow(Exception());
       // act
-      final call = dataSource.removeWatchlist(testTvTable);
+      final call = dataSource.removeWatchlist(testTVTable);
       // assert
       expect(() => call, throwsA(isA<DatabaseException>()));
     });
   });
 
-  group('Get Tv Detail By Id', () {
+  group('Get TV Detail By Id', () {
     const tId = 1;
 
-    test('should return Tv Detail Table when data is found', () async {
+    test('should return TV Detail Table when data is found', () async {
       // arrange
-      when(mockDatabaseHelper.getTvById(tId))
-          .thenAnswer((_) async => testTvMap);
+      when(mockDatabaseHelper.getTVById(tId))
+          .thenAnswer((_) async => testTVMap);
       // act
-      final result = await dataSource.getTvById(tId);
+      final result = await dataSource.getTVById(tId);
       // assert
-      expect(result, testTvTable);
+      expect(result, testTVTable);
     });
 
     test('should return null when data is not found', () async {
       // arrange
-      when(mockDatabaseHelper.getTvById(tId)).thenAnswer((_) async => null);
+      when(mockDatabaseHelper.getTVById(tId)).thenAnswer((_) async => null);
       // act
-      final result = await dataSource.getTvById(tId);
+      final result = await dataSource.getTVById(tId);
       // assert
       expect(result, null);
     });
   });
 
   group('get watchlist tvs', () {
-    test('should return list of TvTable from database', () async {
+    test('should return list of TVTable from database', () async {
       // arrange
-      when(mockDatabaseHelper.getWatchlistTvs())
-          .thenAnswer((_) async => [testTvMap]);
+      when(mockDatabaseHelper.getWatchlistTVs())
+          .thenAnswer((_) async => [testTVMap]);
       // act
-      final result = await dataSource.getWatchlistTvs();
+      final result = await dataSource.getWatchlistTVs();
       // assert
-      expect(result, [testTvTable]);
+      expect(result, [testTVTable]);
     });
   });
 }
