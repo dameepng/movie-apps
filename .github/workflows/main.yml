@@ -19,7 +19,12 @@ jobs:
           channel: 'stable'
 
       - name: Install dependencies
-        run: flutter pub get
+        run: |
+          flutter pub get
+          cd core && flutter pub get && cd ..
+          cd about && flutter pub get && cd ..
+          cd movie && flutter pub get && cd ..
+          cd tv && flutter pub get && cd ..
 
       - name: Create stub Firebase options
         run: |
@@ -35,4 +40,9 @@ jobs:
         run: flutter analyze
 
       - name: Run tests
-        run: flutter test --coverage
+        run: |
+          flutter test
+          cd core && flutter test && cd ..
+          cd about && flutter test && cd ..
+          cd movie && flutter test && cd ..
+          cd tv && flutter test && cd ..
