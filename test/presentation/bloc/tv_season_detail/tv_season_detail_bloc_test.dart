@@ -25,7 +25,6 @@ void main() {
   const tTVSeasonDetail = TVSeasonDetail(
     id: 1,
     name: 'Season 1',
-    overview: 'overview',
     posterPath: 'posterPath',
     seasonNumber: 1,
     episodes: [],
