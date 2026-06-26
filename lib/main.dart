@@ -1,3 +1,8 @@
+import 'dart:ui';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:ditonton/firebase_options.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/ssl_pinning.dart';
 import 'package:ditonton/common/utils.dart';
@@ -39,6 +44,14 @@ import 'package:ditonton/presentation/provider/watchlist_tv_notifier.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await HttpSSLPinning.init();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    return true;
+  };
   di.init();
   runApp(const MyApp());
 }
@@ -103,7 +116,10 @@ class MyApp extends StatelessWidget {
           drawerTheme: kDrawerTheme,
         ),
         home: const HomeMoviePage(),
-        navigatorObservers: [routeObserver],
+        navigatorObservers: [
+          routeObserver,
+          FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance),
+        ],
         onGenerateRoute: (RouteSettings settings) {
           switch (settings.name) {
             case '/home':
