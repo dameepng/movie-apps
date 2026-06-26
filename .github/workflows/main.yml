@@ -21,6 +21,16 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
+      - name: Create stub Firebase options
+        run: |
+          echo "import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;" > lib/firebase_options.dart
+          echo "import 'package:flutter/foundation.dart' show defaultTargetPlatform, kIsWeb, TargetPlatform;" >> lib/firebase_options.dart
+          echo "class DefaultFirebaseOptions {" >> lib/firebase_options.dart
+          echo "  static FirebaseOptions get currentPlatform {" >> lib/firebase_options.dart
+          echo "    return const FirebaseOptions(apiKey: 'dummy', appId: 'dummy', messagingSenderId: 'dummy', projectId: 'dummy');" >> lib/firebase_options.dart
+          echo "  }" >> lib/firebase_options.dart
+          echo "}" >> lib/firebase_options.dart
+
       - name: Analyze Dart code
         run: flutter analyze
 
