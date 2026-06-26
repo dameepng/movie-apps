@@ -1,0 +1,6 @@
+
+## Penting: Konfigurasi API Key TMDB
+Untuk menjalankan proyek ini, Anda perlu memiliki API Key dari TMDB. Buatlah sebuah file `lib/common/env.dart` dan masukkan kode berikut dengan API Key Anda sendiri:
+```dart
+const String API_KEY = 'api_key=API_KEY_ANDA_DISINI';
+```
