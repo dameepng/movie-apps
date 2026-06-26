@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class TvSeasonDetailPage extends StatefulWidget {
-  static const ROUTE_NAME = '/tv-season-detail';
+  static const routeName = '/tv-season-detail';
 
   final int id;
   final int seasonNumber;
@@ -16,7 +16,7 @@ class TvSeasonDetailPage extends StatefulWidget {
       : super(key: key);
 
   @override
-  _TvSeasonDetailPageState createState() => _TvSeasonDetailPageState();
+  State<TvSeasonDetailPage> createState() => _TvSeasonDetailPageState();
 }
 
 class _TvSeasonDetailPageState extends State<TvSeasonDetailPage> {

@@ -6,21 +6,23 @@ import 'package:provider/provider.dart';
 import 'package:ditonton/common/utils.dart';
 
 class WatchlistTvsPage extends StatefulWidget {
-  static const ROUTE_NAME = '/watchlist-tv';
+  static const routeName = '/watchlist-tv';
 
   const WatchlistTvsPage({Key? key}) : super(key: key);
 
   @override
-  _WatchlistTvsPageState createState() => _WatchlistTvsPageState();
+  State<WatchlistTvsPage> createState() => _WatchlistTvsPageState();
 }
 
 class _WatchlistTvsPageState extends State<WatchlistTvsPage> with RouteAware {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<WatchlistTvNotifier>(context, listen: false)
-          ..fetchWatchlistTvs());
+    Future.microtask(() {
+      if (!mounted) return;
+      Provider.of<WatchlistTvNotifier>(context, listen: false)
+          .fetchWatchlistTvs();
+    });
   }
 
   @override

@@ -10,13 +10,13 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 
 class TvDetailPage extends StatefulWidget {
-  static const ROUTE_NAME = '/tv-detail';
+  static const routeName = '/tv-detail';
 
   final int id;
   const TvDetailPage({Key? key, required this.id}) : super(key: key);
 
   @override
-  _TvDetailPageState createState() => _TvDetailPageState();
+  State<TvDetailPage> createState() => _TvDetailPageState();
 }
 
 class _TvDetailPageState extends State<TvDetailPage> {
@@ -292,7 +292,7 @@ class DetailContent extends StatelessWidget {
                                             onTap: () {
                                               Navigator.pushReplacementNamed(
                                                 context,
-                                                TvDetailPage.ROUTE_NAME,
+                                                TvDetailPage.routeName,
                                                 arguments: tvRec.id,
                                               );
                                             },

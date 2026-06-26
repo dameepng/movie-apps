@@ -5,21 +5,23 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class TopRatedTvsPage extends StatefulWidget {
-  static const ROUTE_NAME = '/top-rated-tv';
+  static const routeName = '/top-rated-tv';
 
   const TopRatedTvsPage({Key? key}) : super(key: key);
 
   @override
-  _TopRatedTvsPageState createState() => _TopRatedTvsPageState();
+  State<TopRatedTvsPage> createState() => _TopRatedTvsPageState();
 }
 
 class _TopRatedTvsPageState extends State<TopRatedTvsPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<TopRatedTvsNotifier>(context, listen: false)
-          ..fetchTopRatedTvs());
+    Future.microtask(() {
+      if (!mounted) return;
+      Provider.of<TopRatedTvsNotifier>(context, listen: false)
+          .fetchTopRatedTvs();
+    });
   }
 
   @override

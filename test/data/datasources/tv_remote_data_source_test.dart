@@ -8,7 +8,6 @@ import 'package:mockito/mockito.dart';
 import '../../helpers/test_helper.mocks.dart';
 
 void main() {
-
   const baseUrl = 'https://api.themoviedb.org/3';
 
   late TvRemoteDataSourceImpl dataSource;
@@ -128,7 +127,7 @@ void main() {
         () async {
       // arrange
       when(mockHttpClient
-              .get(Uri.parse('$baseUrl/tv/$tId/recommendations?$apiKey')))
+              .get(Uri.parse('$baseUrl/tv/$tId/recommendations?$API_KEY')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
       // act
       final call = dataSource.getTvRecommendations(tId);
@@ -141,7 +140,7 @@ void main() {
     test('should return list of tvs when response to search is 200', () async {
       // arrange
       when(mockHttpClient
-              .get(Uri.parse('$baseUrl/search/tv?$apiKey&query=$tQuery')))
+              .get(Uri.parse('$baseUrl/search/tv?$API_KEY&query=$tQuery')))
           .thenAnswer((_) async => http.Response('{"results": []}', 200));
       // act
       final result = await dataSource.searchTvs(tQuery);
@@ -153,7 +152,7 @@ void main() {
         () async {
       // arrange
       when(mockHttpClient
-              .get(Uri.parse('$baseUrl/search/tv?$apiKey&query=$tQuery')))
+              .get(Uri.parse('$baseUrl/search/tv?$API_KEY&query=$tQuery')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
       // act
       final call = dataSource.searchTvs(tQuery);

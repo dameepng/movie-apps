@@ -5,21 +5,23 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class OnTheAirTvsPage extends StatefulWidget {
-  static const ROUTE_NAME = '/on-the-air-tv';
+  static const routeName = '/on-the-air-tv';
 
   const OnTheAirTvsPage({Key? key}) : super(key: key);
 
   @override
-  _OnTheAirTvsPageState createState() => _OnTheAirTvsPageState();
+  State<OnTheAirTvsPage> createState() => _OnTheAirTvsPageState();
 }
 
 class _OnTheAirTvsPageState extends State<OnTheAirTvsPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<OnTheAirTvsNotifier>(context, listen: false)
-          ..fetchOnTheAirTvs());
+    Future.microtask(() {
+      if (!mounted) return;
+      Provider.of<OnTheAirTvsNotifier>(context, listen: false)
+          .fetchOnTheAirTvs();
+    });
   }
 
   @override
