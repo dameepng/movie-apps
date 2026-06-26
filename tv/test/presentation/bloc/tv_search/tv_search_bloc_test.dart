@@ -36,6 +36,7 @@ void main() {
       return bloc;
     },
     act: (bloc) => bloc.add(const OnQueryChanged(tQuery)),
+    wait: const Duration(milliseconds: 500),
     expect: () => [
       TVSearchLoading(),
       TVSearchHasData(ttvList),
@@ -53,6 +54,7 @@ void main() {
       return bloc;
     },
     act: (bloc) => bloc.add(const OnQueryChanged(tQuery)),
+    wait: const Duration(milliseconds: 500),
     expect: () => [
       TVSearchLoading(),
       const TVSearchError('Server Failure'),
