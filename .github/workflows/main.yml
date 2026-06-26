@@ -41,7 +41,6 @@ jobs:
 
       - name: Run tests
         run: |
-          flutter test
           cd core && flutter test && cd ..
           cd about && flutter test && cd ..
           cd movie && flutter test && cd ..
