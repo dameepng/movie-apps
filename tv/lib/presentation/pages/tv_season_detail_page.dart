@@ -33,7 +33,7 @@ class _TVSeasonDetailPageState extends State<TVSeasonDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Season \${widget.seasonNumber} Episodes'),
+        title: Text('Season ${widget.seasonNumber} Episodes'),
       ),
       body: BlocBuilder<TVSeasonDetailBloc, TVSeasonDetailState>(
         builder: (context, state) {
@@ -65,7 +65,7 @@ class _TVSeasonDetailPageState extends State<TVSeasonDetailPage> {
                           child: episode.stillPath != null
                               ? CachedNetworkImage(
                                   imageUrl:
-                                      'https://image.tmdb.org/t/p/w500\${episode.stillPath}',
+                                      'https://image.tmdb.org/t/p/w500${episode.stillPath}',
                                   fit: BoxFit.cover,
                                   placeholder: (context, url) => const Center(
                                     child: CircularProgressIndicator(),
@@ -87,7 +87,7 @@ class _TVSeasonDetailPageState extends State<TVSeasonDetailPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                '\${episode.episodeNumber}. \${episode.name}',
+                                '${episode.episodeNumber}. ${episode.name}',
                                 style: kHeading6,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
@@ -99,7 +99,7 @@ class _TVSeasonDetailPageState extends State<TVSeasonDetailPage> {
                                       color: kMikadoYellow, size: 16),
                                   const SizedBox(width: 4),
                                   Text(
-                                    '\${episode.voteAverage}',
+                                    '${episode.voteAverage}',
                                     style: const TextStyle(fontSize: 12),
                                   ),
                                 ],

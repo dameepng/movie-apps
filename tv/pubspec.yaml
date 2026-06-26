@@ -1,5 +1,6 @@
 name: tv
 description: A new Flutter package.
+publish_to: 'none'
 version: 0.0.1
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -13,12 +14,17 @@ dependencies:
   dartz: ^0.10.1
   equatable: ^2.0.5
   flutter_bloc: ^9.1.1
+  bloc: ^9.0.0
+  rxdart: ^0.27.7
   cached_network_image: ^3.4.1
   flutter_rating_bar: ^4.0.1
 
 dev_dependencies:
+  flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
   mockito: ^5.0.8
+  mocktail: ^1.0.0
+  sqflite: ^2.0.0
   build_runner: ^2.0.4
   bloc_test: ^10.0.0

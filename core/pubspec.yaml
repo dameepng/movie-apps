@@ -1,5 +1,6 @@
 name: core
 description: A new Flutter package.
+publish_to: 'none'
 version: 0.0.1
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -17,6 +18,7 @@ dependencies:
   cached_network_image: ^3.4.1
 
 dev_dependencies:
+  flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
   mockito: ^5.0.8

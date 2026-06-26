@@ -20,7 +20,7 @@ void main() {
     bloc = PopularMoviesBloc(mockUsecase);
   });
 
-  final tMovie = Movie(adult: false, backdropPath: "backdropPath", genreIds: [1, 2, 3], id: 1, originalTitle: "originalTitle", overview: "overview", popularity: 1.0, posterPath: "posterPath", releaseDate: "releaseDate", title: "title", video: false, voteAverage: 1.0, voteCount: 1);
+  final tMovie = Movie(adult: false, backdropPath: "backdropPath", genreIds: const [1, 2, 3], id: 1, originalTitle: "originalTitle", overview: "overview", popularity: 1.0, posterPath: "posterPath", releaseDate: "releaseDate", title: "title", video: false, voteAverage: 1.0, voteCount: 1);
   final tmovieList = <Movie>[tMovie];
 
   test('initial state should be empty', () {
@@ -48,7 +48,7 @@ void main() {
     'Should emit [Loading, Error] when get data is unsuccessful',
     build: () {
       when(mockUsecase.execute())
-          .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
+          .thenAnswer((_) async => const Left(ServerFailure('Server Failure')));
       return bloc;
     },
     act: (bloc) => bloc.add(FetchPopularMovies()),

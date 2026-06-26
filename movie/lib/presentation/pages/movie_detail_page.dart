@@ -90,7 +90,7 @@ class DetailContent extends StatelessWidget {
     return Stack(
       children: [
         CachedNetworkImage(
-          imageUrl: 'https://image.tmdb.org/t/p/w500\${movie.posterPath}',
+          imageUrl: 'https://image.tmdb.org/t/p/w500${movie.posterPath}',
           width: screenWidth,
           placeholder: (context, url) => const Center(
             child: CircularProgressIndicator(),
@@ -163,7 +163,7 @@ class DetailContent extends StatelessWidget {
                                   ),
                                   itemSize: 24,
                                 ),
-                                Text('\${movie.voteAverage}')
+                                Text('${movie.voteAverage}')
                               ],
                             ),
                             const SizedBox(height: 16),
@@ -214,7 +214,7 @@ class DetailContent extends StatelessWidget {
                                               ),
                                               child: CachedNetworkImage(
                                                 imageUrl:
-                                                    'https://image.tmdb.org/t/p/w500\${movie.posterPath}',
+                                                    'https://image.tmdb.org/t/p/w500${movie.posterPath}',
                                                 placeholder: (context, url) =>
                                                     const Center(
                                                   child:
@@ -275,7 +275,7 @@ class DetailContent extends StatelessWidget {
   String _showGenres(List<Genre> genres) {
     String result = '';
     for (var genre in genres) {
-      result += '\${genre.name}, ';
+      result += '${genre.name}, ';
     }
 
     if (result.isEmpty) {
@@ -290,9 +290,9 @@ class DetailContent extends StatelessWidget {
     final int minutes = runtime % 60;
 
     if (hours > 0) {
-      return '\${hours}h \${minutes}m';
+      return '${hours}h ${minutes}m';
     } else {
-      return '\${minutes}m';
+      return '${minutes}m';
     }
   }
 }

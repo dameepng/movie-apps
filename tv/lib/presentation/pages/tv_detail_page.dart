@@ -90,7 +90,7 @@ class DetailContent extends StatelessWidget {
     return Stack(
       children: [
         CachedNetworkImage(
-          imageUrl: 'https://image.tmdb.org/t/p/w500\${tv.posterPath}',
+          imageUrl: 'https://image.tmdb.org/t/p/w500${tv.posterPath}',
           width: screenWidth,
           placeholder: (context, url) => const Center(
             child: CircularProgressIndicator(),
@@ -160,7 +160,7 @@ class DetailContent extends StatelessWidget {
                                   ),
                                   itemSize: 24,
                                 ),
-                                Text('\${tv.voteAverage}')
+                                Text('${tv.voteAverage}')
                               ],
                             ),
                             const SizedBox(height: 16),
@@ -205,7 +205,7 @@ class DetailContent extends StatelessWidget {
                                             season.posterPath != null
                                                 ? CachedNetworkImage(
                                                     imageUrl:
-                                                        'https://image.tmdb.org/t/p/w500\${season.posterPath}',
+                                                        'https://image.tmdb.org/t/p/w500${season.posterPath}',
                                                     placeholder:
                                                         (context, url) =>
                                                             const Center(
@@ -240,7 +240,7 @@ class DetailContent extends StatelessWidget {
                                                           fontSize: 12),
                                                     ),
                                                     Text(
-                                                      '\${season.episodeCount} Eps',
+                                                      '${season.episodeCount} Eps',
                                                       style: const TextStyle(
                                                           color: Colors.white,
                                                           fontSize: 10),
@@ -297,7 +297,7 @@ class DetailContent extends StatelessWidget {
                                               ),
                                               child: CachedNetworkImage(
                                                 imageUrl:
-                                                    'https://image.tmdb.org/t/p/w500\${tvRec.posterPath}',
+                                                    'https://image.tmdb.org/t/p/w500${tvRec.posterPath}',
                                                 placeholder: (context, url) =>
                                                     const Center(
                                                   child:
@@ -358,7 +358,7 @@ class DetailContent extends StatelessWidget {
   String _showGenres(List<Genre> genres) {
     String result = '';
     for (var genre in genres) {
-      result += '\${genre.name}, ';
+      result += '${genre.name}, ';
     }
 
     if (result.isEmpty) {

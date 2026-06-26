@@ -1,5 +1,6 @@
 name: about
 description: A new Flutter package.
+publish_to: 'none'
 version: 0.0.1
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -11,5 +12,6 @@ dependencies:
     path: ../core
 
 dev_dependencies:
+  flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter

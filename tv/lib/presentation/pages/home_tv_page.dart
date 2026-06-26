@@ -4,7 +4,7 @@ import 'package:tv/domain/entities/tv.dart';
 import 'package:tv/presentation/bloc/on_the_air_tvs/on_the_air_tvs_bloc.dart';
 import 'package:tv/presentation/bloc/popular_tvs/popular_tvs_bloc.dart';
 import 'package:tv/presentation/bloc/top_rated_tvs/top_rated_tvs_bloc.dart';
-import 'package:ditonton/presentation/pages/about_page.dart';
+
 import 'package:tv/presentation/pages/on_the_air_tvs_page.dart';
 import 'package:tv/presentation/pages/popular_tvs_page.dart';
 import 'package:tv/presentation/pages/search_tv_page.dart';
@@ -74,7 +74,7 @@ class _HomeTVPageState extends State<HomeTVPage> {
             ),
             ListTile(
               onTap: () {
-                Navigator.pushNamed(context, AboutPage.routeName);
+                Navigator.pushNamed(context, '/about');
               },
               leading: const Icon(Icons.info_outline),
               title: const Text('About'),
@@ -211,7 +211,7 @@ class TVList extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(16)),
                 child: CachedNetworkImage(
-                  imageUrl: '\$BASE_IMAGE_URL\${tv.posterPath}',
+                  imageUrl: '$BASE_IMAGE_URL${tv.posterPath}',
                   placeholder: (context, url) => const Center(
                     child: CircularProgressIndicator(),
                   ),

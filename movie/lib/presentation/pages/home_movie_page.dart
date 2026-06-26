@@ -4,7 +4,7 @@ import 'package:movie/domain/entities/movie.dart';
 import 'package:movie/presentation/bloc/now_playing_movies/now_playing_movies_bloc.dart';
 import 'package:movie/presentation/bloc/popular_movies/popular_movies_bloc.dart';
 import 'package:movie/presentation/bloc/top_rated_movies/top_rated_movies_bloc.dart';
-import 'package:ditonton/presentation/pages/about_page.dart';
+
 import 'package:movie/presentation/pages/movie_detail_page.dart';
 import 'package:movie/presentation/pages/popular_movies_page.dart';
 import 'package:movie/presentation/pages/search_page.dart';
@@ -12,7 +12,7 @@ import 'package:movie/presentation/pages/top_rated_movies_page.dart';
 import 'package:movie/presentation/pages/watchlist_movies_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tv/presentation/pages/home_tv_page.dart';
+
 
 class HomeMoviePage extends StatefulWidget {
   const HomeMoviePage({Key? key}) : super(key: key);
@@ -60,7 +60,7 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
               leading: const Icon(Icons.tv),
               title: const Text('TV Series'),
               onTap: () {
-                Navigator.pushReplacementNamed(context, HomeTVPage.routeName);
+                Navigator.pushReplacementNamed(context, '/home-tv');
               },
             ),
             ListTile(
@@ -72,7 +72,7 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
             ),
             ListTile(
               onTap: () {
-                Navigator.pushNamed(context, AboutPage.routeName);
+                Navigator.pushNamed(context, '/about');
               },
               leading: const Icon(Icons.info_outline),
               title: const Text('About'),
@@ -208,7 +208,7 @@ class MovieList extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(16)),
                 child: CachedNetworkImage(
-                  imageUrl: '\$BASE_IMAGE_URL\${movie.posterPath}',
+                  imageUrl: '$BASE_IMAGE_URL${movie.posterPath}',
                   placeholder: (context, url) => const Center(
                     child: CircularProgressIndicator(),
                   ),

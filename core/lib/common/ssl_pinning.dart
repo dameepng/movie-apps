@@ -4,9 +4,9 @@ import 'package:http/http.dart' as http;
 import 'package:http/io_client.dart';
 
 class HttpSSLPinning {
-  static Future<http.Client> get _instance async =>
-      _clientInstance ??= await Shared.createLEClient();
+  
   static http.Client? _clientInstance;
+  
   static http.Client get client => _clientInstance ?? http.Client();
   static Future<void> init() async {
     _clientInstance = await Shared.createLEClient();
@@ -24,7 +24,7 @@ class Shared {
       context.setTrustedCertificatesBytes(bytes);
       print('createLEClient: cert loaded');
     } on PlatformException catch (e) {
-      print('createLEClient: \${e.message}');
+      print('createLEClient: ${e.message}');
     }
     HttpClient httpClient = HttpClient(context: context);
     httpClient.badCertificateCallback =

@@ -20,9 +20,9 @@ void main() {
     bloc = TVSearchBloc(mockUsecase);
   });
 
-  final tTV = TV(backdropPath: "backdropPath", genreIds: [1, 2, 3], id: 1, originalName: "originalName", overview: "overview", popularity: 1.0, posterPath: "posterPath", firstAirDate: "firstAirDate", name: "name", voteAverage: 1.0, voteCount: 1);
+  final tTV = TV(backdropPath: "backdropPath", genreIds: const [1, 2, 3], id: 1, originalName: "originalName", overview: "overview", popularity: 1.0, posterPath: "posterPath", firstAirDate: "firstAirDate", name: "name", voteAverage: 1.0, voteCount: 1);
   final ttvList = <TV>[tTV];
-  final tQuery = 'spiderman';
+  const tQuery = 'spiderman';
 
   test('initial state should be empty', () {
     expect(bloc.state, TVSearchEmpty());
@@ -35,7 +35,7 @@ void main() {
           .thenAnswer((_) async => Right(ttvList));
       return bloc;
     },
-    act: (bloc) => bloc.add(OnQueryChanged(tQuery)),
+    act: (bloc) => bloc.add(const OnQueryChanged(tQuery)),
     expect: () => [
       TVSearchLoading(),
       TVSearchHasData(ttvList),
@@ -49,10 +49,10 @@ void main() {
     'Should emit [Loading, Error] when get data is unsuccessful',
     build: () {
       when(mockUsecase.execute(tQuery))
-          .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
+          .thenAnswer((_) async => const Left(ServerFailure('Server Failure')));
       return bloc;
     },
-    act: (bloc) => bloc.add(OnQueryChanged(tQuery)),
+    act: (bloc) => bloc.add(const OnQueryChanged(tQuery)),
     expect: () => [
       TVSearchLoading(),
       const TVSearchError('Server Failure'),
