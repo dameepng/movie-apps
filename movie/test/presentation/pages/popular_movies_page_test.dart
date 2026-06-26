@@ -52,7 +52,8 @@ void main() {
 
   testWidgets('Page should display ListView when data is loaded',
       (WidgetTester tester) async {
-    when(() => mockBloc.state).thenReturn(const PopularMoviesHasData(<Movie>[]));
+    when(() => mockBloc.state)
+        .thenReturn(const PopularMoviesHasData(<Movie>[]));
 
     final listViewFinder = find.byType(ListView);
 

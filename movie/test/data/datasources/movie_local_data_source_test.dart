@@ -48,8 +48,9 @@ void main() {
         () async {
       // arrange
       when(mockDatabaseHelper.database).thenAnswer((_) async => mockDatabase);
-      when(mockDatabase.delete('watchlist', where: 'id = ?', whereArgs: [testMovieTable.id]))
-          .thenAnswer((_) async => 1);
+      when(mockDatabase.delete('watchlist',
+          where: 'id = ?',
+          whereArgs: [testMovieTable.id])).thenAnswer((_) async => 1);
       // act
       final result = await dataSource.removeWatchlist(testMovieTable);
       // assert
@@ -60,8 +61,9 @@ void main() {
         () async {
       // arrange
       when(mockDatabaseHelper.database).thenAnswer((_) async => mockDatabase);
-      when(mockDatabase.delete('watchlist', where: 'id = ?', whereArgs: [testMovieTable.id]))
-          .thenThrow(Exception());
+      when(mockDatabase.delete('watchlist',
+          where: 'id = ?',
+          whereArgs: [testMovieTable.id])).thenThrow(Exception());
       // act
       final call = dataSource.removeWatchlist(testMovieTable);
       // assert

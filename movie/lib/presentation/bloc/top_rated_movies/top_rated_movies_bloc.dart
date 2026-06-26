@@ -6,7 +6,8 @@ import 'package:movie/domain/usecases/get_top_rated_movies.dart';
 part 'top_rated_movies_event.dart';
 part 'top_rated_movies_state.dart';
 
-class TopRatedMoviesBloc extends Bloc<TopRatedMoviesEvent, TopRatedMoviesState> {
+class TopRatedMoviesBloc
+    extends Bloc<TopRatedMoviesEvent, TopRatedMoviesState> {
   final GetTopRatedMovies _getTopRatedMovies;
 
   TopRatedMoviesBloc(this._getTopRatedMovies) : super(TopRatedMoviesEmpty()) {

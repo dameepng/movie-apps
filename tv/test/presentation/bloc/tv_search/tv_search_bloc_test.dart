@@ -20,7 +20,18 @@ void main() {
     bloc = TVSearchBloc(mockUsecase);
   });
 
-  final tTV = TV(backdropPath: "backdropPath", genreIds: const [1, 2, 3], id: 1, originalName: "originalName", overview: "overview", popularity: 1.0, posterPath: "posterPath", firstAirDate: "firstAirDate", name: "name", voteAverage: 1.0, voteCount: 1);
+  final tTV = TV(
+      backdropPath: "backdropPath",
+      genreIds: const [1, 2, 3],
+      id: 1,
+      originalName: "originalName",
+      overview: "overview",
+      popularity: 1.0,
+      posterPath: "posterPath",
+      firstAirDate: "firstAirDate",
+      name: "name",
+      voteAverage: 1.0,
+      voteCount: 1);
   final ttvList = <TV>[tTV];
   const tQuery = 'spiderman';
 
@@ -31,12 +42,10 @@ void main() {
   blocTest<TVSearchBloc, TVSearchState>(
     'Should emit [Loading, HasData] when data is gotten successfully',
     build: () {
-      when(mockUsecase.execute(tQuery))
-          .thenAnswer((_) async => Right(ttvList));
+      when(mockUsecase.execute(tQuery)).thenAnswer((_) async => Right(ttvList));
       return bloc;
     },
     act: (bloc) => bloc.add(const OnQueryChanged(tQuery)),
-    wait: const Duration(milliseconds: 500),
     expect: () => [
       TVSearchLoading(),
       TVSearchHasData(ttvList),
@@ -54,7 +63,6 @@ void main() {
       return bloc;
     },
     act: (bloc) => bloc.add(const OnQueryChanged(tQuery)),
-    wait: const Duration(milliseconds: 500),
     expect: () => [
       TVSearchLoading(),
       const TVSearchError('Server Failure'),

@@ -6,7 +6,8 @@ import 'package:tv/domain/usecases/get_tv_season_detail.dart';
 part 'tv_season_detail_event.dart';
 part 'tv_season_detail_state.dart';
 
-class TVSeasonDetailBloc extends Bloc<TVSeasonDetailEvent, TVSeasonDetailState> {
+class TVSeasonDetailBloc
+    extends Bloc<TVSeasonDetailEvent, TVSeasonDetailState> {
   final GetTVSeasonDetail _usecase;
 
   TVSeasonDetailBloc(this._usecase) : super(TVSeasonDetailEmpty()) {

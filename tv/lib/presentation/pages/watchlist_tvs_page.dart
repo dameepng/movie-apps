@@ -13,8 +13,7 @@ class WatchlistTVsPage extends StatefulWidget {
   State<WatchlistTVsPage> createState() => _WatchlistTVsPageState();
 }
 
-class _WatchlistTVsPageState extends State<WatchlistTVsPage>
-    with RouteAware {
+class _WatchlistTVsPageState extends State<WatchlistTVsPage> with RouteAware {
   @override
   void initState() {
     super.initState();
@@ -55,8 +54,7 @@ class _WatchlistTVsPageState extends State<WatchlistTVsPage>
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.tv_off_outlined,
-                          size: 72, color: Colors.grey),
+                      Icon(Icons.tv_off_outlined, size: 72, color: Colors.grey),
                       SizedBox(height: 16),
                       Text('Belum ada item di Watchlist',
                           style: TextStyle(color: Colors.grey)),

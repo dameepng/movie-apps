@@ -48,8 +48,9 @@ void main() {
         () async {
       // arrange
       when(mockDatabaseHelper.database).thenAnswer((_) async => mockDatabase);
-      when(mockDatabase.delete('tv_watchlist', where: 'id = ?', whereArgs: [testTVTable.id]))
-          .thenAnswer((_) async => 1);
+      when(mockDatabase.delete('tv_watchlist',
+          where: 'id = ?',
+          whereArgs: [testTVTable.id])).thenAnswer((_) async => 1);
       // act
       final result = await dataSource.removeWatchlist(testTVTable);
       // assert
@@ -60,8 +61,8 @@ void main() {
         () async {
       // arrange
       when(mockDatabaseHelper.database).thenAnswer((_) async => mockDatabase);
-      when(mockDatabase.delete('tv_watchlist', where: 'id = ?', whereArgs: [testTVTable.id]))
-          .thenThrow(Exception());
+      when(mockDatabase.delete('tv_watchlist',
+          where: 'id = ?', whereArgs: [testTVTable.id])).thenThrow(Exception());
       // act
       final call = dataSource.removeWatchlist(testTVTable);
       // assert
@@ -75,8 +76,9 @@ void main() {
     test('should return TV Detail Table when data is found', () async {
       // arrange
       when(mockDatabaseHelper.database).thenAnswer((_) async => mockDatabase);
-      when(mockDatabase.query('tv_watchlist', where: 'id = ?', whereArgs: [tId]))
-          .thenAnswer((_) async => [testTVMap]);
+      when(mockDatabase.query('tv_watchlist',
+          where: 'id = ?',
+          whereArgs: [tId])).thenAnswer((_) async => [testTVMap]);
       // act
       final result = await dataSource.getTVById(tId);
       // assert
@@ -86,8 +88,8 @@ void main() {
     test('should return null when data is not found', () async {
       // arrange
       when(mockDatabaseHelper.database).thenAnswer((_) async => mockDatabase);
-      when(mockDatabase.query('tv_watchlist', where: 'id = ?', whereArgs: [tId]))
-          .thenAnswer((_) async => []);
+      when(mockDatabase.query('tv_watchlist',
+          where: 'id = ?', whereArgs: [tId])).thenAnswer((_) async => []);
       // act
       final result = await dataSource.getTVById(tId);
       // assert

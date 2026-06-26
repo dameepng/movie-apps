@@ -106,11 +106,11 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData.dark().copyWith(
-          colorScheme: kColorScheme,
-          primaryColor: kRichBlack,
-          scaffoldBackgroundColor: kRichBlack,
-          textTheme: kTextTheme,
-          drawerTheme: kDrawerTheme,
+          colorScheme: colorScheme,
+          primaryColor: richBlack,
+          scaffoldBackgroundColor: richBlack,
+          textTheme: textTheme,
+          drawerTheme: drawerTheme,
         ),
         home: const HomeMoviePage(),
         navigatorObservers: [
@@ -124,13 +124,16 @@ class MyApp extends StatelessWidget {
             case '/home-tv':
               return MaterialPageRoute(builder: (_) => const HomeTVPage());
             case PopularMoviesPage.routeName:
-              return CupertinoPageRoute(builder: (_) => const PopularMoviesPage());
+              return CupertinoPageRoute(
+                  builder: (_) => const PopularMoviesPage());
             case PopularTVsPage.routeName:
               return CupertinoPageRoute(builder: (_) => const PopularTVsPage());
             case TopRatedMoviesPage.routeName:
-              return CupertinoPageRoute(builder: (_) => const TopRatedMoviesPage());
+              return CupertinoPageRoute(
+                  builder: (_) => const TopRatedMoviesPage());
             case TopRatedTVsPage.routeName:
-              return CupertinoPageRoute(builder: (_) => const TopRatedTVsPage());
+              return CupertinoPageRoute(
+                  builder: (_) => const TopRatedTVsPage());
             case MovieDetailPage.routeName:
               final id = settings.arguments as int;
               return MaterialPageRoute(
@@ -157,11 +160,14 @@ class MyApp extends StatelessWidget {
             case SearchTVPage.routeName:
               return CupertinoPageRoute(builder: (_) => const SearchTVPage());
             case WatchlistMoviesPage.routeName:
-              return MaterialPageRoute(builder: (_) => const WatchlistMoviesPage());
+              return MaterialPageRoute(
+                  builder: (_) => const WatchlistMoviesPage());
             case WatchlistTVsPage.routeName:
-              return MaterialPageRoute(builder: (_) => const WatchlistTVsPage());
+              return MaterialPageRoute(
+                  builder: (_) => const WatchlistTVsPage());
             case OnTheAirTVsPage.routeName:
-              return CupertinoPageRoute(builder: (_) => const OnTheAirTVsPage());
+              return CupertinoPageRoute(
+                  builder: (_) => const OnTheAirTVsPage());
             case AboutPage.routeName:
               return MaterialPageRoute(builder: (_) => const AboutPage());
             default:

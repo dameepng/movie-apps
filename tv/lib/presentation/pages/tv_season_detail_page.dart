@@ -88,7 +88,7 @@ class _TVSeasonDetailPageState extends State<TVSeasonDetailPage> {
                             children: [
                               Text(
                                 '${episode.episodeNumber}. ${episode.name}',
-                                style: kHeading6,
+                                style: heading6,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
@@ -96,7 +96,7 @@ class _TVSeasonDetailPageState extends State<TVSeasonDetailPage> {
                               Row(
                                 children: [
                                   const Icon(Icons.star,
-                                      color: kMikadoYellow, size: 16),
+                                      color: mikadoYellow, size: 16),
                                   const SizedBox(width: 4),
                                   Text(
                                     '${episode.voteAverage}',

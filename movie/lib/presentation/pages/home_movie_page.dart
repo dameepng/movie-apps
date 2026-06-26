@@ -13,7 +13,6 @@ import 'package:movie/presentation/pages/watchlist_movies_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
 class HomeMoviePage extends StatefulWidget {
   const HomeMoviePage({Key? key}) : super(key: key);
 
@@ -99,7 +98,7 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
             children: [
               Text(
                 'Now Playing',
-                style: kHeading6,
+                style: heading6,
               ),
               BlocBuilder<NowPlayingMoviesBloc, NowPlayingMoviesState>(
                   builder: (context, state) {
@@ -166,7 +165,7 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
       children: [
         Text(
           title,
-          style: kHeading6,
+          style: heading6,
         ),
         InkWell(
           onTap: onTap,

@@ -34,7 +34,7 @@ class SearchPage extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               'Search Result',
-              style: kHeading6,
+              style: heading6,
             ),
             BlocBuilder<MovieSearchBloc, MovieSearchState>(
               builder: (context, state) {

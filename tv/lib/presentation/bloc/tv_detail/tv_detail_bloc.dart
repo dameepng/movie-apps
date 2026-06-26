@@ -33,8 +33,7 @@ class TVDetailBloc extends Bloc<TVDetailEvent, TVDetailState> {
       emit(state.copyWith(tvState: RequestState.Loading));
 
       final detailResult = await getTVDetail.execute(event.id);
-      final recommendationResult =
-          await getTVRecommendations.execute(event.id);
+      final recommendationResult = await getTVRecommendations.execute(event.id);
 
       detailResult.fold(
         (failure) {

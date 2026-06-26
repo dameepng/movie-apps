@@ -20,7 +20,20 @@ void main() {
     bloc = TopRatedMoviesBloc(mockUsecase);
   });
 
-  final tMovie = Movie(adult: false, backdropPath: "backdropPath", genreIds: const [1, 2, 3], id: 1, originalTitle: "originalTitle", overview: "overview", popularity: 1.0, posterPath: "posterPath", releaseDate: "releaseDate", title: "title", video: false, voteAverage: 1.0, voteCount: 1);
+  final tMovie = Movie(
+      adult: false,
+      backdropPath: "backdropPath",
+      genreIds: const [1, 2, 3],
+      id: 1,
+      originalTitle: "originalTitle",
+      overview: "overview",
+      popularity: 1.0,
+      posterPath: "posterPath",
+      releaseDate: "releaseDate",
+      title: "title",
+      video: false,
+      voteAverage: 1.0,
+      voteCount: 1);
   final tmovieList = <Movie>[tMovie];
 
   test('initial state should be empty', () {
@@ -30,8 +43,7 @@ void main() {
   blocTest<TopRatedMoviesBloc, TopRatedMoviesState>(
     'Should emit [Loading, HasData] when data is gotten successfully',
     build: () {
-      when(mockUsecase.execute())
-          .thenAnswer((_) async => Right(tmovieList));
+      when(mockUsecase.execute()).thenAnswer((_) async => Right(tmovieList));
       return bloc;
     },
     act: (bloc) => bloc.add(FetchTopRatedMovies()),

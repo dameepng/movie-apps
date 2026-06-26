@@ -103,7 +103,7 @@ class DetailContent extends StatelessWidget {
             builder: (context, scrollController) {
               return Container(
                 decoration: const BoxDecoration(
-                  color: kRichBlack,
+                  color: richBlack,
                   borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
                 ),
                 padding: const EdgeInsets.only(
@@ -122,7 +122,7 @@ class DetailContent extends StatelessWidget {
                           children: [
                             Text(
                               tv.name,
-                              style: kHeading5,
+                              style: heading5,
                             ),
                             FilledButton(
                               onPressed: () {
@@ -156,7 +156,7 @@ class DetailContent extends StatelessWidget {
                                   itemCount: 5,
                                   itemBuilder: (context, index) => const Icon(
                                     Icons.star,
-                                    color: kMikadoYellow,
+                                    color: mikadoYellow,
                                   ),
                                   itemSize: 24,
                                 ),
@@ -166,7 +166,7 @@ class DetailContent extends StatelessWidget {
                             const SizedBox(height: 16),
                             Text(
                               'Overview',
-                              style: kHeading6,
+                              style: heading6,
                             ),
                             Text(
                               tv.overview,
@@ -174,151 +174,16 @@ class DetailContent extends StatelessWidget {
                             const SizedBox(height: 16),
                             Text(
                               'Seasons',
-                              style: kHeading6,
+                              style: heading6,
                             ),
-                            SizedBox(
-                              height: 150,
-                              child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: tv.seasons.length,
-                                itemBuilder: (context, index) {
-                                  final season = tv.seasons[index];
-                                  return Padding(
-                                    padding: const EdgeInsets.all(4.0),
-                                    child: InkWell(
-                                      onTap: () {
-                                        Navigator.pushNamed(
-                                          context,
-                                          '/tv-season-detail',
-                                          arguments: {
-                                            'id': tv.id,
-                                            'seasonNumber': season.seasonNumber,
-                                          },
-                                        );
-                                      },
-                                      child: ClipRRect(
-                                        borderRadius: const BorderRadius.all(
-                                          Radius.circular(8),
-                                        ),
-                                        child: Stack(
-                                          children: [
-                                            season.posterPath != null
-                                                ? CachedNetworkImage(
-                                                    imageUrl:
-                                                        'https://image.tmdb.org/t/p/w500${season.posterPath}',
-                                                    placeholder:
-                                                        (context, url) =>
-                                                            const Center(
-                                                      child:
-                                                          CircularProgressIndicator(),
-                                                    ),
-                                                    errorWidget: (context, url,
-                                                            error) =>
-                                                        const Icon(Icons.error),
-                                                  )
-                                                : Container(
-                                                    width: 100,
-                                                    color: Colors.grey,
-                                                    child: const Center(
-                                                        child: Icon(Icons.tv))),
-                                            Positioned(
-                                              bottom: 0,
-                                              left: 0,
-                                              right: 0,
-                                              child: Container(
-                                                color: Colors.black54,
-                                                padding:
-                                                    const EdgeInsets.all(4),
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      season.name ?? '-',
-                                                      style: const TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 12),
-                                                    ),
-                                                    Text(
-                                                      '${season.episodeCount} Eps',
-                                                      style: const TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 10),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
+                            _buildSeasons(context, tv),
                             const SizedBox(height: 16),
                             Text(
                               'Recommendations',
-                              style: kHeading6,
+                              style: heading6,
                             ),
-                            BlocBuilder<TVDetailBloc, TVDetailState>(
-                              builder: (context, state) {
-                                if (state.recommendationState ==
-                                    RequestState.Loading) {
-                                  return const Center(
-                                    child: CircularProgressIndicator(),
-                                  );
-                                } else if (state.recommendationState ==
-                                    RequestState.Error) {
-                                  return Text(state.message);
-                                } else if (state.recommendationState ==
-                                    RequestState.Loaded) {
-                                  return SizedBox(
-                                    height: 150,
-                                    child: ListView.builder(
-                                      scrollDirection: Axis.horizontal,
-                                      itemBuilder: (context, index) {
-                                        final tvRec = recommendations[index];
-                                        return Padding(
-                                          padding: const EdgeInsets.all(4.0),
-                                          child: InkWell(
-                                            onTap: () {
-                                              Navigator.pushReplacementNamed(
-                                                context,
-                                                TVDetailPage.routeName,
-                                                arguments: tvRec.id,
-                                              );
-                                            },
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  const BorderRadius.all(
-                                                Radius.circular(8),
-                                              ),
-                                              child: CachedNetworkImage(
-                                                imageUrl:
-                                                    'https://image.tmdb.org/t/p/w500${tvRec.posterPath}',
-                                                placeholder: (context, url) =>
-                                                    const Center(
-                                                  child:
-                                                      CircularProgressIndicator(),
-                                                ),
-                                                errorWidget:
-                                                    (context, url, error) =>
-                                                        const Icon(Icons.error),
-                                              ),
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                      itemCount: recommendations.length,
-                                    ),
-                                  );
-                                } else {
-                                  return Container();
-                                }
-                              },
-                            ),
+                            _buildRecommendations(context),
+// Code extracted to method
                           ],
                         ),
                       ),
@@ -341,7 +206,7 @@ class DetailContent extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: CircleAvatar(
-            backgroundColor: kRichBlack,
+            backgroundColor: richBlack,
             foregroundColor: Colors.white,
             child: IconButton(
               icon: const Icon(Icons.arrow_back),
@@ -366,5 +231,129 @@ class DetailContent extends StatelessWidget {
     }
 
     return result.substring(0, result.length - 2);
+  }
+
+  Widget _buildSeasons(BuildContext context, TVDetail tv) {
+    return SizedBox(
+      height: 150,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: tv.seasons.length,
+        itemBuilder: (context, index) {
+          final season = tv.seasons[index];
+          return Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: InkWell(
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  '/tv-season-detail',
+                  arguments: {
+                    'id': tv.id,
+                    'seasonNumber': season.seasonNumber,
+                  },
+                );
+              },
+              child: ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(8)),
+                child: Stack(
+                  children: [
+                    season.posterPath != null
+                        ? CachedNetworkImage(
+                            imageUrl:
+                                'https://image.tmdb.org/t/p/w500${season.posterPath}',
+                            placeholder: (context, url) => const Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                            errorWidget: (context, url, error) =>
+                                const Icon(Icons.error),
+                          )
+                        : Container(
+                            width: 100,
+                            color: Colors.grey,
+                            child: const Center(child: Icon(Icons.tv))),
+                    Positioned(
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      child: Container(
+                        color: Colors.black54,
+                        padding: const EdgeInsets.all(4),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              season.name ?? '-',
+                              style: const TextStyle(
+                                  color: Colors.white, fontSize: 12),
+                            ),
+                            Text(
+                              '${season.episodeCount} Eps',
+                              style: const TextStyle(
+                                  color: Colors.white, fontSize: 10),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildRecommendations(BuildContext context) {
+    return BlocBuilder<TVDetailBloc, TVDetailState>(
+      builder: (context, state) {
+        if (state.recommendationState == RequestState.Loading) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (state.recommendationState == RequestState.Error) {
+          return Text(state.message);
+        } else if (state.recommendationState == RequestState.Loaded) {
+          return SizedBox(
+            height: 150,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                final tvRec = recommendations[index];
+                return Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        TVDetailPage.routeName,
+                        arguments: tvRec.id,
+                      );
+                    },
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                      child: CachedNetworkImage(
+                        imageUrl:
+                            'https://image.tmdb.org/t/p/w500${tvRec.posterPath}',
+                        placeholder: (context, url) => const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
+                      ),
+                    ),
+                  ),
+                );
+              },
+              itemCount: recommendations.length,
+            ),
+          );
+        } else {
+          return Container();
+        }
+      },
+    );
   }
 }

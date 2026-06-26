@@ -169,7 +169,7 @@ class _HomeTVPageState extends State<HomeTVPage> {
       children: [
         Text(
           title,
-          style: kHeading6,
+          style: heading6,
         ),
         InkWell(
           onTap: onTap,

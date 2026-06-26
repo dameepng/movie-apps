@@ -20,7 +20,18 @@ void main() {
     bloc = OnTheAirTVsBloc(mockUsecase);
   });
 
-  final tTV = TV(backdropPath: "backdropPath", genreIds: const [1, 2, 3], id: 1, originalName: "originalName", overview: "overview", popularity: 1.0, posterPath: "posterPath", firstAirDate: "firstAirDate", name: "name", voteAverage: 1.0, voteCount: 1);
+  final tTV = TV(
+      backdropPath: "backdropPath",
+      genreIds: const [1, 2, 3],
+      id: 1,
+      originalName: "originalName",
+      overview: "overview",
+      popularity: 1.0,
+      posterPath: "posterPath",
+      firstAirDate: "firstAirDate",
+      name: "name",
+      voteAverage: 1.0,
+      voteCount: 1);
   final ttvList = <TV>[tTV];
 
   test('initial state should be empty', () {
@@ -30,8 +41,7 @@ void main() {
   blocTest<OnTheAirTVsBloc, OnTheAirTVsState>(
     'Should emit [Loading, HasData] when data is gotten successfully',
     build: () {
-      when(mockUsecase.execute())
-          .thenAnswer((_) async => Right(ttvList));
+      when(mockUsecase.execute()).thenAnswer((_) async => Right(ttvList));
       return bloc;
     },
     act: (bloc) => bloc.add(FetchOnTheAirTVs()),

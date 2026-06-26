@@ -20,7 +20,20 @@ void main() {
     bloc = MovieSearchBloc(mockUsecase);
   });
 
-  final tMovie = Movie(adult: false, backdropPath: "backdropPath", genreIds: const [1, 2, 3], id: 1, originalTitle: "originalTitle", overview: "overview", popularity: 1.0, posterPath: "posterPath", releaseDate: "releaseDate", title: "title", video: false, voteAverage: 1.0, voteCount: 1);
+  final tMovie = Movie(
+      adult: false,
+      backdropPath: "backdropPath",
+      genreIds: const [1, 2, 3],
+      id: 1,
+      originalTitle: "originalTitle",
+      overview: "overview",
+      popularity: 1.0,
+      posterPath: "posterPath",
+      releaseDate: "releaseDate",
+      title: "title",
+      video: false,
+      voteAverage: 1.0,
+      voteCount: 1);
   final tmovieList = <Movie>[tMovie];
   const tQuery = 'spiderman';
 
@@ -36,7 +49,6 @@ void main() {
       return bloc;
     },
     act: (bloc) => bloc.add(const OnQueryChanged(tQuery)),
-    wait: const Duration(milliseconds: 500),
     expect: () => [
       MovieSearchLoading(),
       MovieSearchHasData(tmovieList),
@@ -54,7 +66,6 @@ void main() {
       return bloc;
     },
     act: (bloc) => bloc.add(const OnQueryChanged(tQuery)),
-    wait: const Duration(milliseconds: 500),
     expect: () => [
       MovieSearchLoading(),
       const MovieSearchError('Server Failure'),
